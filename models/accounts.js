@@ -21,6 +21,12 @@ const getUsersFromFile = (cb) => {
   });
 }
 
+// function saveFileData(data) {
+//   fs.writeFile(p, JSON.stringify(data), (err) => {
+//     console.log(err);
+//   });
+// }
+
 
 // Create Class and export it to make it available outside this file
 module.exports = class UserAccount {
@@ -55,9 +61,12 @@ module.exports = class UserAccount {
   }
   static deleteUserById(id) {
     getUsersFromFile(users => {
-      const existingUserIndex = users.findIndex(u => u.id === id);
-      users.splice(existingUserIndex, 1);
-      fs.writeFile(p, JSON.stringify(users), (err) => {
+      // One way with Index
+      /*const existingUserIndex = users.findIndex(u => u.id === id);
+      users.splice(existingUserIndex, 1);*/
+      // With filter creating a new copy of the array filtered
+      const updatedUsers = users.filter(u => u.id !== id);
+      fs.writeFile(p, JSON.stringify(updatedUsers), (err) => {
         console.log(err);
       });
     });

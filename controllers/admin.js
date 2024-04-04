@@ -13,7 +13,7 @@ exports.getHome = (req, res, next) => {
       moduleName: moduleName,
       pagetoLoad: `${moduleName}/${tempPath}`,
       moduleSection: `${moduleName}-${tempPath}`,
-      totalusers: count
+      totalUsers: count
     });
   })
 }
