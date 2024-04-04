@@ -1,7 +1,0 @@
-$imgUrl: url(../img/pages/account/register/banner.jpg);
-$this: #{home};
-.path-#{$this} {
-  .#{$this} {
-    @import 'home/banner';
-  }
-}
