@@ -1,0 +1,382 @@
+@use "sass:math";
+
+$flexboxwidth: 90%;
+
+@mixin flex-setup {
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+.flex-s-b {
+    @include flex-setup;
+    justify-content: space-between;
+}
+
+.flex-s-a {
+    @include flex-setup;
+    justify-content: space-around;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-nowrap {
+    flex-wrap: nowrap;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-wrap-reverse {
+    flex-wrap: wrap-reverse;
+}
+
+
+.flex-hc {
+    @include flex-setup;
+    justify-content: center;
+}
+
+.flex-h-f-s {
+    @include flex-setup;
+    justify-content: flex-start;
+}
+
+.flex-h-f-e {
+    @include flex-setup;
+    justify-content: flex-end;
+}
+
+.flex-vc {
+    @include flex-setup;
+    align-items: center;
+}
+
+.flex-vcc {
+    @include flex-setup;
+    align-content: center;
+}
+
+.flex-v-f-s {
+    @include flex-setup;
+    align-items: flex-start;
+}
+
+.flex-v-f-e {
+    @include flex-setup;
+    align-items: flex-end;
+}
+
+.flex-v-s-a {
+    @include flex-setup;
+    align-content: space-around;
+}
+
+.flex-v-s-b {
+    @include flex-setup;
+    align-content: space-between;
+}
+
+.flex-hvc {
+    @include flex-setup;
+    justify-content: center;
+    align-items: center;
+}
+
+
+// Here it's really funny because you need to choose the main rule in the number about the boxes, and you'll play with this and auto sizes
+@mixin box-setup {
+    box-sizing: border-box;
+    margin: 5px;
+    transition: all 0.3s;
+}
+
+// Here you'll make your template, it's easy, if you want to work with more than 12 columns so change;
+$boxtemplate: 12;
+$boxcalc: math.div($flexboxwidth, $boxtemplate);
+
+/* Flex-Box Setup for 12 colums */
+@for $i from 1 through $boxtemplate {
+    .box-#{$i} {
+        @include box-setup;
+        width: $boxcalc * $i;
+    }
+}
+
+// Here it's funny because the rules change with the letter i for inter-medium screens, from 1000px to 1280 px max.
+@media (max-width: $break-intermedium) {
+
+    /* Flex-Box Setup for 12 colums */
+    @for $i from 1 through $boxtemplate {
+        .box-i-#{$i} {
+            @include box-setup;
+            width: $boxcalc * $i;
+        }
+    }
+
+    .flex-i-wrap {
+        flex-wrap: wrap;
+    }
+
+    .flex-i-nowrap {
+        flex-wrap: nowrap;
+    }
+
+
+    .flex-i-wrap-reverse {
+        flex-wrap: wrap-reverse;
+    }
+
+    .flex-i-row-reverse {
+        flex-direction: row-reverse;
+    }
+
+
+    .flex-i-s-b {
+        @include flex-setup;
+        justify-content: space-between;
+    }
+
+    .flex-i-s-a {
+        @include flex-setup;
+        justify-content: space-around;
+    }
+
+
+    .flex-i-hc {
+        @include flex-setup;
+        justify-content: center;
+    }
+
+    .flex-i-h-f-s {
+        @include flex-setup;
+        justify-content: flex-start;
+    }
+
+    .flex-i-h-f-e {
+        @include flex-setup;
+        justify-content: flex-end;
+    }
+
+    .flex-i-vc {
+        @include flex-setup;
+        align-items: center;
+    }
+
+    .flex-i-vcc {
+        @include flex-setup;
+        align-content: center;
+    }
+
+    .flex-i-v-f-s {
+        @include flex-setup;
+        align-items: flex-start;
+    }
+
+    .flex-i-v-f-e {
+        @include flex-setup;
+        align-items: flex-end;
+    }
+
+    .flex-i-v-s-a {
+        @include flex-setup;
+        align-content: space-around;
+    }
+
+    .flex-i-v-s-b {
+        @include flex-setup;
+        align-content: space-between;
+    }
+
+    .flex-i-hvc {
+        @include flex-setup;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+
+// Here it's funny because the rules change with the letter m for medium screens, from 450px to 1000 px max.
+@media (max-width: $break-medium) {
+
+    /* Flex-Box Setup for 12 colums */
+    @for $i from 1 through $boxtemplate {
+        .box-m-#{$i} {
+            @include box-setup;
+            width: $boxcalc * $i;
+        }
+    }
+
+    .flex-m-wrap {
+        flex-wrap: wrap;
+    }
+
+    .flex-m-nowrap {
+        flex-wrap: nowrap;
+    }
+
+
+    .flex-m-wrap-reverse {
+        flex-wrap: wrap-reverse;
+    }
+
+    .flex-m-row-reverse {
+        flex-direction: row-reverse;
+    }
+
+    .flex-m-s-b {
+        @include flex-setup;
+        justify-content: space-between;
+    }
+
+    .flex-m-s-a {
+        @include flex-setup;
+        justify-content: space-around;
+    }
+
+
+    .flex-m-hc {
+        @include flex-setup;
+        justify-content: center;
+    }
+
+    .flex-m-h-f-s {
+        @include flex-setup;
+        justify-content: flex-start;
+    }
+
+    .flex-m-h-f-e {
+        @include flex-setup;
+        justify-content: flex-end;
+    }
+
+    .flex-m-vc {
+        @include flex-setup;
+        align-items: center;
+    }
+    
+    .flex-m-vcc {
+    @include flex-setup;
+    align-content: center;
+}
+
+    .flex-m-v-f-s {
+        @include flex-setup;
+        align-items: flex-start;
+    }
+
+    .flex-m-v-f-e {
+        @include flex-setup;
+        align-items: flex-end;
+    }
+
+    .flex-m-v-s-a {
+        @include flex-setup;
+        align-content: space-around;
+    }
+
+    .flex-m-v-s-b {
+        @include flex-setup;
+        align-content: space-between;
+    }
+
+    .flex-m-hvc {
+        @include flex-setup;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+// Here it's funny because the rules change with the letter p for medium screens, from 0px to 550 px max.
+@media (max-width: $break-small) {
+
+    /* Flex-Box Setup for 12 colums */
+    @for $i from 1 through $boxtemplate {
+        .box-p-#{$i} {
+            @include box-setup;
+            width: $boxcalc * $i;
+        }
+    }
+
+    .flex-p-wrap {
+        flex-wrap: wrap;
+    }
+
+    .flex-p-nowrap {
+        flex-wrap: nowrap;
+    }
+
+
+    .flex-p-wrap-reverse {
+        flex-wrap: wrap-reverse;
+    }
+
+    .flex-p-row-reverse {
+        flex-direction: row-reverse;
+    }
+
+    .flex-p-s-b {
+        @include flex-setup;
+        justify-content: space-between;
+    }
+
+    .flex-p-s-a {
+        @include flex-setup;
+        justify-content: space-around;
+    }
+
+
+    .flex-p-hc {
+        @include flex-setup;
+        justify-content: center;
+    }
+
+    .flex-p-h-f-s {
+        @include flex-setup;
+        justify-content: flex-start;
+    }
+
+    .flex-p-h-f-e {
+        @include flex-setup;
+        justify-content: flex-end;
+    }
+
+    .flex-p-vc {
+        @include flex-setup;
+        align-items: center;
+    }
+    
+    .flex-p-vcc {
+    @include flex-setup;
+    align-content: center;
+}
+
+    .flex-p-v-f-s {
+        @include flex-setup;
+        align-items: flex-start;
+    }
+
+    .flex-p-v-f-e {
+        @include flex-setup;
+        align-items: flex-end;
+    }
+
+    .flex-p-v-s-a {
+        @include flex-setup;
+        align-content: space-around;
+    }
+
+    .flex-p-v-s-b {
+        @include flex-setup;
+        align-content: space-between;
+    }
+
+    .flex-p-hvc {
+        @include flex-setup;
+        justify-content: center;
+        align-items: center;
+    }
+}

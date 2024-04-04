@@ -1,0 +1,352 @@
+// Bucles, Here you have something fun for your proyect, and don't waste time editing
+/* Margins in pixels*/
+@for $i from 1 through 50{  
+        .m#{$i}px{      
+            margin: 0px + $i;
+        }
+}
+
+/* Margin Auto*/
+.mauto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Margin Top in pixels*/
+@for $i from 1 through 50{  
+        .mt#{$i}px{      
+            margin-top: 0px + $i;
+        }
+}
+
+/* Margin Left in pixels*/
+@for $i from 1 through 50{  
+        .ml#{$i}px{      
+            margin-left: 0px + $i;
+        }
+}
+
+/* Margin Right in pixels*/
+@for $i from 1 through 50{  
+        .mr#{$i}px{      
+            margin-right: 0px + $i;
+        }
+}
+
+/* Margin Bottom in pixels*/
+@for $i from 1 through 50{  
+        .mb#{$i}px{      
+            margin-bottom: 0px + $i;
+        }
+}
+/* Font-Sizes in pixels*/
+@for $i from 1 through 250{  
+        .fs#{$i}px{      
+            font-size: 0px + $i;
+        }
+}
+
+@media (max-width: $break-intermedium) {
+    @for $i from 1 through 250{  
+        .fs-i-#{$i}px{      
+            font-size: 0px + $i;
+        }
+}
+}
+
+@media (max-width: $break-medium) {
+    @for $i from 1 through 250{  
+        .fs-m-#{$i}px{      
+            font-size: 0px + $i;
+        }
+}
+}
+
+@media (max-width: $break-small) {
+    @for $i from 1 through 250{  
+        .fs-p-#{$i}px{      
+            font-size: 0px + $i;
+        }
+}
+}
+
+/* Paddings in pixels*/
+@for $i from 1 through 50{  
+        .p#{$i}px{      
+            padding: 0px + $i;
+        }
+}
+
+/* Padding Top in pixels*/
+@for $i from 1 through 50{  
+        .pt#{$i}px{      
+            padding-top: 0px + $i;
+        }
+}
+
+/* Padding Left in pixels*/
+@for $i from 1 through 50{  
+        .pl#{$i}px{      
+            padding-left: 0px + $i;
+        }
+}
+
+/* Padding Right in pixels*/
+@for $i from 1 through 50{  
+        .pr#{$i}px{      
+            padding-right: 0px + $i;
+        }
+}
+
+/* Padding Bottom in pixels*/
+@for $i from 1 through 50{  
+        .pb#{$i}px{      
+            padding-bottom: 0px + $i;
+        }
+}
+
+/* Widths in px */
+@for $i from 1 through 1000{  
+        .w#{$i}px{      
+            width: 0px + $i;
+        }
+}
+
+/* Max-Widths in px */
+@for $i from 1 through 1500{  
+        .maxw#{$i}px{      
+            max-width: 0px + $i;
+        }
+}
+
+/* Min-Widths in px */
+@for $i from 1 through 1500{  
+        .minw#{$i}px{      
+            min-width: 0px + $i;
+        }
+}
+
+/* Widths in % */
+@for $i from 1 through 100{  
+        .w#{$i}p{      
+            width: 0% + $i;
+        }
+}
+
+/* Max-Widths in % */
+@for $i from 1 through 100{  
+        .maxw#{$i}p{      
+            max-width: 0% + $i;
+        }
+}
+
+/* Min-Widths in % */
+@for $i from 1 through 100{  
+        .minw#{$i}p{      
+            min-width: 0% + $i;
+        }
+}
+
+/* Heights in px */
+@for $i from 1 through 1000{  
+        .h#{$i}px{      
+            height: 0px + $i;
+        }
+}
+
+/* Max-Heights in px */
+@for $i from 1 through 1500{  
+        .maxh#{$i}px{      
+            max-height: 0px + $i;
+        }
+}
+
+/* Min-Heights in px */
+@for $i from 1 through 1500{  
+        .minh#{$i}px{      
+            min-height: 0px + $i;
+        }
+}
+
+/* Heights in % */
+@for $i from 1 through 100{  
+        .h#{$i}p{      
+            height: 0% + $i;
+        }
+}
+
+/* Max-Heights in % */
+@for $i from 1 through 100{  
+        .maxh#{$i}p{      
+            max-height: 0% + $i;
+        }
+}
+
+/* Min-Heights in p */
+@for $i from 1 through 100{  
+        .minh#{$i}p{      
+            min-height: 0% + $i;
+        }
+}
+
+/* Line Height in em */
+@for $i from 1 through 9{  
+        .lh#{$i}em{      
+            line-height: 0em + $i;
+        }
+}
+
+.lh01em {
+    line-height: 0.1em;
+}
+.lh01em {
+    line-height: 0.1em;
+}
+.lh02em {
+    line-height: 0.2em;
+}
+.lh03em {
+    line-height: 0.3em;
+}
+.lh04em {
+    line-height: 0.4em;
+}
+.lh05em {
+    line-height: 0.5em;
+}
+.lh06em {
+    line-height: 0.6em;
+}
+.lh07em {
+    line-height: 0.7em;
+}
+.lh08em {
+    line-height: 0.8em;
+}
+.lh09em {
+    line-height: 0.9em;
+}
+
+.lh11em {
+    line-height: 1.1em;
+}
+.lh12em {
+    line-height: 1.2em;
+}
+.lh13em {
+    line-height: 1.3em;
+}
+.lh14em {
+    line-height: 1.4em;
+}
+.lh15em {
+    line-height: 1.5em;
+}
+.lh16em {
+    line-height: 1.6em;
+}
+.lh17em {
+    line-height: 1.7em;
+}
+.lh18em {
+    line-height: 1.8em;
+}
+.lh19em {
+    line-height: 1.9em;
+}
+.lh21em {
+    line-height: 2.1em;
+}
+.lh22em {
+    line-height: 2.2em;
+}
+.lh23em {
+    line-height: 2.3em;
+}
+.lh24em {
+    line-height: 2.4em;
+}
+.lh25em {
+    line-height: 2.5em;
+}
+.lh26em {
+    line-height: 2.6em;
+}
+.lh27em {
+    line-height: 2.7em;
+}
+.lh28em {
+    line-height: 2.8em;
+}
+.lh29em {
+    line-height: 2.9em;
+}
+/* Border Radius in 
+px */
+@for $i from 1 through 150{  
+        .br#{$i}px{      
+            border-radius: 0px + $i;
+        }
+}
+/* Border Radius in % */
+@for $i from 1 through 100{  
+        .br#{$i}p{      
+            border-radius: 0% + $i;
+        }
+}
+
+
+/* Displays */
+.dblock {
+    display: block;
+}
+
+.dinline {
+    display: inline;
+}
+
+
+
+/* Transictions */
+.t01s {
+    transition: all 0.1s;
+}
+.t02s {
+    transition: all 0.2s;
+}
+.t03s {
+    transition: all 0.3s;
+}
+.t04s {
+    transition: all 0.4s;
+}
+.t05s {
+    transition: all 0.5s;
+}
+.t06s {
+    transition: all 0.6s;
+}
+.t07s {
+    transition: all 0.7s;
+}
+.t08s {
+    transition: all 0.8s;
+}
+.t09s {
+    transition: all 0.9s;
+}
+.t1s {
+    transition: all 1s;
+}
+.t2s {
+    transition: all 2s;
+}
+.t3s {
+    transition: all 3s;
+}
+.t4s {
+    transition: all 4s;
+}
+.t5s {
+    transition: all 5s;
+}

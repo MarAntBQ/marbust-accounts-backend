@@ -1,0 +1,86 @@
+@page {
+  background: #323232;
+  margin: 30px 40px;
+  sheet-size: A4;
+}
+header {
+  color: white;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.top-logo {
+  width: 150px;
+}
+
+hr {
+  color: white;
+  height: 1.5px;
+  margin: 0px;
+}
+
+h1 {
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  background: #388DCE;
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+h2 {
+  color: white;
+  text-transform: uppercase;
+}
+
+div {
+  color: white;
+}
+
+p {
+  color: white;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  color: white;
+}
+.table-container table thead tr th {
+  padding: 10px;
+  border: 1px solid white;
+}
+.table-container table tbody tr {
+  background: gray;
+}
+.table-container table tbody tr:nth-child(odd) {
+  background: white;
+}
+.table-container table tbody tr:nth-child(odd) td {
+  color: black;
+}
+.table-container table tbody tr td {
+  padding: 5px 10px;
+  border: 1px solid white;
+}
+
+footer {
+  margin-top: 0px;
+  color: white;
+  text-align: center;
+  margin-top: 30px;
+}
+footer p {
+  margin: 15px 0px 0px 0px;
+  line-height: 2em;
+}
+footer p a {
+  color: #24B4ED;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/*# sourceMappingURL=styles.css.map */

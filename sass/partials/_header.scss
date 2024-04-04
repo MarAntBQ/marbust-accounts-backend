@@ -1,0 +1,314 @@
+header {
+        z-index: 10;
+        padding: 10px;
+        width: 100%;
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+        position: fixed;
+        top: 0px;
+        //left: 0px;
+        background:$color3;
+        //background: rgb(234, 234, 234);
+        height: 53px;
+        max-height: 53px;
+        min-height: 53px;
+
+        &,
+        * {
+            box-sizing: border-box;
+        }
+
+        transition: all 0.5s;
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            ul {
+                list-style: none;
+            }
+
+            .logo {
+                text-decoration: none;
+                color: $color4;
+                font-size: 30px;
+                transition: 0.5s all;
+                span:nth-child(2) {
+                    font-size: 15px;
+                    position: relative;
+                    left: -5px;
+                }
+                &:hover {
+                    color: $color2;
+                }
+
+                @media (max-width: $break-medium) {
+                    width: calc(100vw - 40px);
+                    text-align: center;
+                }
+            }
+
+            @media (max-width: $break-medium) {
+                ul {
+                    display: none;
+                }
+
+                .menu-btn {
+                    font-size: 30px;
+                    color: $color4;
+                    transition: 0.5s all;
+
+                    &:hover {
+                        color: $color2;
+                        cursor: pointer;
+                        transform: scale(1.1);
+                    }
+                    &:active {
+                        transform: scale(0.7);
+                    }
+                }
+            }
+
+            @media (min-width: $break-medium) {
+                .menu-btn {
+                    display: none;
+                }
+
+                ul {
+                    list-style: none;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    li {
+                        a {
+                            display: block;
+                            padding: 5px 10px;
+                            text-decoration: none;
+                            color: $color4;
+                            transition: all 0.5s;
+
+                            &:hover {
+                                color: $color2;
+                                cursor: pointer;
+                            }
+                        }
+
+                        .link-active {
+                            color: $color1;
+                        }
+
+                        ul {
+                            display: none;
+
+                            li {
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    .sub-menu:hover {
+                        ul {
+                            z-index: -3;
+                            padding-top: 30px;
+                            display: flex;
+                            position: absolute;
+                            top: 23px;
+                            margin-left: -25px;
+                            background: $color3;
+                            border-radius: 0px 0px 10px 10px;
+
+                            li {
+                                .link-active {
+                                    color: $color1;
+                                }
+
+                                a {
+                                    display: block;
+                                    padding: 5px 10px;
+                                    text-decoration: none;
+                                    color: $color4;
+                                    transition: all 0.5s;
+                                    text-align: center;
+
+                                    &:hover {
+                                        color: $color2;
+                                        cursor: pointer;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+        }
+
+    }
+
+    .header-down {
+        background: $color4;
+        box-shadow: 0 3px 7px 0 rgb(0 0 0 / 12%), inset 0 -1px 0 0 #dadce0;
+
+        .menu-btn {
+            color: $color1;
+        }
+
+        nav {
+            .logo {
+                color: $color1;
+                animation: 0.5s changesitename ease;
+                @keyframes changesitename {
+                    from {
+                        color: $color3;
+                    }
+                    to {
+                        color: $color1;
+                    }
+                }
+            }
+            ul {
+                li {
+                    .link-active {
+                        color: $color1;
+                    }
+
+                    a {
+                        color: $color3;
+                    }
+                }
+                .sub-menu:hover {
+                        ul {
+
+                            background: $color4;
+
+                            li {
+                                .link-active {
+                                    color: $color1;
+                                }
+
+                                a {
+                                    color: $color3;
+                                }
+                            }
+                        }
+                    }
+            }
+        }
+    }
+
+    .menu-small {
+        @media (max-width: $break-medium) {
+            position: fixed;
+            top: 53px;
+            left: 0px;
+            width: 100%;
+            background: $color4;
+            display: flex;
+            flex-wrap: wrap;
+            animation: 0.5s downmenu ease;
+
+            @keyframes downmenu {
+                from {
+                    opacity: 0;
+                    transform: scale(0.1);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+            }
+
+            .sub-menu-active {
+                ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    li {
+                        width: 100%;
+                    }
+                }
+            }
+
+
+            li {
+                width: 100%;
+
+                .link-active {
+                    color: $color1;
+                }
+
+                a {
+                    display: block;
+
+                    text-decoration: none;
+                    color: $color3;
+                    text-align: center;
+                    padding: 10px;
+                    transition: all 0.5s;
+
+                    &:hover {
+                        color: $color2;
+                        cursor: pointer;
+                    }
+
+
+                }
+            }
+        }
+
+    }
+
+    .menu-up {
+        @media (max-width: $break-medium) {
+            position: fixed;
+            top: 53px;
+            left: 0px;
+            width: 100%;
+            background: $color4;
+            display: flex;
+            flex-wrap: wrap;
+            animation: 0.5s upmenu ease;
+
+            @keyframes upmenu {
+                from {
+                    //transform: translateY(0px);
+
+                }
+
+                to {
+                    //transform: translateY(-500px);
+                    transform: scale(0.1);
+                    opacity: 0;
+                    display: none;
+                }
+            }
+
+
+            li {
+                width: 100%;
+
+                .link-active {
+                    color: $color1;
+                }
+
+                a {
+                    display: block;
+
+                    text-decoration: none;
+                    color: $color4;
+                    text-align: center;
+                    padding: 10px;
+                    transition: all 0.5s;
+
+                    &:hover {
+                        color: $color2;
+                        cursor: pointer;
+                    }
+
+
+                }
+            }
+        }
+
+    }

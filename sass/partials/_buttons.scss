@@ -1,0 +1,27 @@
+.btn-center {
+        margin: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        //border: 1px solid $color4;
+        max-width: 180px;
+        min-width: 180px;
+        padding: 15px;
+        background: $color4;
+        color: $color3;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        transition: 1s;
+        border: 0px;
+
+        &:hover {
+            background: rgb(56, 141, 206);
+            background: linear-gradient(90deg, rgba(56, 141, 206, 1) 19%, rgba(36, 180, 237, 1) 50%);
+            color: $color4;
+            //border: 1px solid $color1;
+            border-radius: 10px;
+            transform: scale(1.03);
+            cursor: pointer;
+        }
+    }

@@ -1,0 +1,5 @@
+// Hi, in this next section, we use some funny functions, if you can add more, you're free to do it, but use the patter .hover-"your properties"
+/* Hover Effects */
+.hover-shadow:hover {
+    @include shadow;
+}

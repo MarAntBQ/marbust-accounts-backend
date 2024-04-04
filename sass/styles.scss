@@ -1,0 +1,30 @@
+/* Marbust Technology Company New Design 2020 */
+/* May 9th, 2020*/
+@import 'marbust-framework/marbust-framework';
+
+//Import
+@import 'partials/media';
+@import 'partials/color';
+@import 'partials/body';
+@import 'partials/lists';
+@import 'partials/fonts';
+@import 'partials/header';
+@import 'partials/main';
+@import 'partials/footer';
+@import 'partials/buttons';
+@import 'partials/forms';
+//Pages
+@import 'partials/home-page';
+@import 'partials/my-account';
+@import 'partials/login';
+@import 'partials/register';
+@import 'partials/change-data';
+@import 'partials/change-password';
+@import 'partials/users';
+//- Pages / Computers
+@import 'partials/computers/mycomputers';
+@import 'partials/computers/register-computer';
+@import 'partials/computers/register-type-maintances';
+@import 'partials/computers/register-tech';
+
+

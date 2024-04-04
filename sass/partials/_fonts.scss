@@ -1,0 +1,52 @@
+/*Fonts*/
+@font-face {
+    font-family: Nexa;
+    src: url(fonts/Nexa-Light.otf);
+}
+
+@font-face {
+    font-family: Nexa-Bold;
+    src: url(fonts/Nexa-Bold.otf);
+}
+
+@font-face {
+    font-family: Fresh-Eaters;
+    src: url(fonts/Fresh-Eaters.otf);
+}
+
+body {
+    font-family: Nexa, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: Nexa-Bold, sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    color: $color1;
+}
+
+.fresh-eaters {
+    font-family: Fresh-Eaters, sans-serif;
+}
+
+.nexa {
+    font-family: Nexa, sans-serif;
+}
+
+.nexa-bold {
+    font-family: Nexa-Bold, sans-serif;
+}
+
+strong {
+    color: $color2;
+}
+
+strong2 {
+    color: $color2;
+    font-weight: bold;
+}

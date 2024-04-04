@@ -1,0 +1,34 @@
+/* Marbust Technology Company Framework CSS 4.2.0 */
+/* Freedom in your design and power for your layout */
+/* Update October 28th, 2021 */
+/* 2021 - We work together for a better world */
+/* ------------News-------------------*/
+/* This project will be descontinuated, we'll begin working in a new brand version */
+/* New Brand Version => https://github.com/MarcoAntonioMGDA/FreedomFramework */
+/* Give a new property * {box-sizing: border-box;} */
+/*------------Main Files-----------------------------------*/
+/* framework.marbust.com/marbust-framework.scss <- SASS*/
+/* framework.marbust.com/marbust-framework.css <- CSS*/
+/*en: This framework it's auto-update, so you can add to your top of your html, or import with the code below, and obtain the new updated features */
+//1.- Main Style Decisions
+@import 'framework-partials/mainstyle';
+//2.- Media Queries Variables and Setup
+@import 'framework-partials/mediaqueries';
+//3.- Flex Box Grid Setups, by default it's 12 columns, you can deactivate
+@import 'framework-partials/flexboxsetups';
+//4.- Layout General Sections
+@import 'framework-partials/layouts';
+//5.- Bucles for width, margin, padding, etc.
+@import 'framework-partials/bucles';
+//6.- Shadows for projects.
+@import 'framework-partials/shadows';
+//7.- Text Aligns.
+@import 'framework-partials/textsetups';
+//8.- Hover Effects
+@import 'framework-partials/hovers';
+
+/*To import to your web site, in your css file add the next line:
+@import url("https://framework.marbust.com/marbust-framework.css");
+*/
+
+/* Licensed by: Marbust Technology Company® - All Rights Reserved | You're able to use, modify, but always giving credit to the author: WFD. Marco Antonio MGDA (Marbust CEO) */

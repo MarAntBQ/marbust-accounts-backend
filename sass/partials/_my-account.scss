@@ -1,0 +1,81 @@
+.myaccount {
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image: url(../img/layout/main/my-account.jpg);
+	padding: 50px 10px;
+
+	.myaccount-setting-flex {
+		//flex-s-a w90p maxw1100px mauto
+		width: 90%;
+		max-width: 1100px;
+		margin: 0px auto;
+		display: flex;
+		justify-content: space-around;
+
+		@media (max-width: 962px) {
+			flex-wrap: wrap;
+		}
+
+		.left {
+			width: 100%;
+		}
+	}
+}
+
+.my-account-options {
+	background: #d4d4d4;
+
+	*,
+	& {
+		box-sizing: border-box;
+	}
+
+	padding: 30px 0px;
+
+	.maor {
+		width: 90%;
+		max-width: 700px;
+		margin: 0px auto;
+		margin-bottom: 10px;
+		padding: 30px 30px;
+		filter: drop-shadow(1px 1px 2px #808080);
+		background: white;
+		color: black;
+		border-radius: 3px;
+		border: 1px solid rgba(128, 128, 128, 0.41);
+
+		a {
+			color: $color2;
+
+			&:hover {
+				color: $color1;
+			}
+		}
+
+		.maor-tittle {
+			padding: 10px 0px;
+
+			@media (max-width: 600px) {
+				a {
+					width: 100%;
+					padding: 10px 0px;
+				}
+			}
+		}
+
+		.maor-body {
+			line-height: 2em;
+
+			p {
+				color: #7b7b7b;
+
+				b {
+					color: black;
+				}
+			}
+		}
+	}
+
+}

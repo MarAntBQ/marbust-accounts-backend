@@ -1,0 +1,106 @@
+footer {
+    padding: 10px;
+    background: $color1;
+    color: $color4;
+    @media (max-width: $break-small) {
+        padding: 10px 20px;
+    }
+
+    .wsp-msg {
+        position: fixed;
+        bottom: 22px;
+        right: 60px;
+        padding: 5px 10px;
+        background: #ECE5DD;
+        color: black;
+        border-radius: 10px;
+        font-weight: bold;
+        transform: scale(0);
+        transform: translateX(200px);
+        animation: 3s ease wspdsp;
+
+        @keyframes wspdsp {
+            0% {
+                transform: translateY(100px) translateX(0px);
+            }
+
+            50% {
+                transform: translateY(0px)
+            }
+
+            100% {
+                transform: translateX(200px);
+            }
+        }
+    }
+
+    .wsp-btn {
+
+        &,
+        * {
+            transition: 0.5s all;
+        }
+
+        display: flex;
+        position: fixed;
+        bottom: 15px;
+        right: 15px;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        background: #25D366;
+        color: white;
+        //padding: 5px;
+        font-size: 30px;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+
+        &:hover {
+            background: #075E54;
+
+            i {
+                transform: rotate(15deg);
+            }
+        }
+
+        transform: translateX(0px);
+        animation: 1s ease wspdsp2;
+
+        @keyframes wspdsp2 {
+            from {
+                transform: translateX(50px);
+            }
+
+            to {
+                transform: translateX(0px);
+            }
+        }
+    }
+
+    .social-media {
+        display: flex;
+        justify-content: center;
+
+        a {
+            display: block;
+
+            &:hover {
+               
+
+                i {
+                    transform: scale(1.1);
+                     //color: $color3;
+                }
+            }
+
+            i {
+                font-size: 20px;
+                color: $color4;
+                //font-weight: bold;
+                margin: 0px 5px;
+                transition: 0.5s all;
+            }
+        }
+    }
+}

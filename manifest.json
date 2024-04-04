@@ -1,0 +1,64 @@
+{
+  "name": "Marbust Accounts",
+  "short_name": "Marbust Accounts",
+  "description": "Después de varios años de trabajo arduo basado en la nube; decidimos ayudarte para que crezcas empresarialmente y juntos cambiar el mundo ¿Te animas?",
+  "background_color": "#ffffff",
+  "theme_color": "#388DCE",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "./",
+  "scope": "./",
+  "lang": "es-EC",
+  "icons": [
+    {
+      "src": "./app/logos/1080.png",
+      "sizes": "1081x1081",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/logos/512.png",
+      "sizes": "513x513",
+      "type": "image/png"
+    },
+    {
+      "src": "./app/logos/384.png",
+      "sizes": "385x385",
+      "type": "image/png"
+    },
+    {
+      "src": "app/logos/256.png",
+      "sizes": "257x257",
+      "type": "image/png"
+    },
+    {
+      "src": "app/logos/192.png",
+      "sizes": "193x193",
+      "type": "image/png"
+    },
+    {
+      "src": "app/logos/128.png",
+      "sizes": "129x129",
+      "type": "image/png"
+    },
+    {
+      "src": "app/logos/96.png",
+      "sizes": "97x97",
+      "type": "image/png"
+    },
+    {
+      "src": "app/logos/64.png",
+      "sizes": "65x65",
+      "type": "image/png"
+    },
+    {
+      "src": "app/logos/32.png",
+      "sizes": "33x33",
+      "type": "image/png"
+    },
+    {
+      "src": "app/logos/16.png",
+      "sizes": "17x17",
+      "type": "image/png"
+    }
+  ]
+}

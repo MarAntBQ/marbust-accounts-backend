@@ -1,0 +1,92 @@
+.home-slide {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: table-cell;
+    vertical-align: middle;
+    /*display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;*/
+    min-height: calc(100vh - 53px);
+    height: calc(100vh - 53px);
+    width: 100vw;
+    padding: 20px;
+
+    h1,
+    p {
+        color: $color4;
+    }
+
+    .service-name {
+        text-transform: none;
+        font-weight: normal;
+        margin-top: -10px;
+    }
+
+    p {
+        line-height: 1.5em;
+
+        strong {
+            color: white;
+        }
+    }
+
+    .home-btn {
+        margin: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        //border: 1px solid $color4;
+        max-width: 150px;
+        padding: 15px;
+        background: $color4;
+        color: $color3;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 18px;
+        transition: 1s;
+
+        &:hover {
+            background: rgb(56, 141, 206);
+            background: linear-gradient(90deg, rgba(56, 141, 206, 1) 19%, rgba(36, 180, 237, 1) 50%);
+            color: $color4;
+            //border: 1px solid $color1;
+            border-radius: 10px;
+            transform: scale(1.03);
+        }
+    }
+
+}
+
+#about {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/layout/main/about.jpg);
+    padding-bottom: 50px;
+}
+
+.main-marbust-bg {
+    background-image: url(../img/layout/main/home-presentation.jpg);
+}
+
+.less-shadow {
+    filter: drop-shadow(4px 4px 5px rgba(128, 128, 128, 0.67));
+}
+
+.services-section a img {
+    transition: 0.5s all;
+
+    &:hover {
+        transform: scale(1.1);
+        filter: drop-shadow(4px 4px 5px rgba(128, 128, 128, 0.67));
+    }
+}
+
+.form-control {
+    border: 1px solid white;
+}

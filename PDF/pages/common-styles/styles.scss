@@ -1,0 +1,116 @@
+$color1: #388DCE;
+$color2: #24B4ED;
+$color3: #323232;
+$color4: white;
+
+@page {
+	background: $color3;
+	margin: 30px 40px;
+	sheet-size: A4;
+	//color: red;
+}
+
+header {
+	color: white;
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.top-logo {
+	width: 150px;
+	//display: block;
+	//margin: 10px 0px;
+}
+
+hr {
+	color: $color4;
+	height: 1.5px;
+	margin: 0px;
+}
+
+h1 {
+	text-align: center;
+	//background: $color1;
+	text-transform: uppercase;
+	color: $color4;
+	background: $color1;
+	font-size: 30px;
+	margin-top: 10px;
+	margin-bottom: 15px;
+	padding: 10px;
+}
+
+
+h2 {
+	color: $color4;
+	text-transform: uppercase;
+}
+
+div {
+	color: white;
+}
+
+p {
+	color: white;
+}
+
+.table-container {
+
+	//background: green;
+	table {
+		width: 100%;
+		border-collapse: collapse;
+		text-align: center;
+		color: white;
+
+		//margin-top: 15px;
+
+		thead {
+			tr {
+				th {
+					padding: 10px;
+					border: 1px solid white;
+
+				}
+			}
+		}
+
+		tbody {
+			tr {
+				background: gray;
+
+				&:nth-child(odd) {
+					background: white;
+
+					td {
+						color: black;
+					}
+				}
+
+				td {
+					padding: 5px 10px;
+					border: 1px solid white;
+				}
+			}
+		}
+	}
+}
+
+footer {
+	margin-top: 0px;
+	color: white;
+	text-align: center;
+	margin-top: 30px;
+
+	p {
+		margin: 15px 0px 0px 0px;
+		line-height: 2em;
+
+		a {
+			color: $color2;
+			text-decoration: none;
+			font-weight: bold;
+		}
+	}
+
+}

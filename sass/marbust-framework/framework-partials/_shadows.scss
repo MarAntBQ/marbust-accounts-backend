@@ -1,0 +1,8 @@
+$shadow: drop-shadow(8px 8px 10px #808080);
+@mixin shadow {
+    filter: $shadow;
+}
+
+.shadow {
+    filter: $shadow;
+}

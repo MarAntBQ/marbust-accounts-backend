@@ -1,0 +1,28 @@
+main {
+    margin-top: 53px;
+
+    .section {
+        padding: 10px;
+    }
+
+    .section-move {
+        padding: 53px 10px 10px 10px;
+    }
+
+    .section-move-white {
+        padding: 53px 10px 10px 10px;
+        background: $color4;
+        color: $color3;
+    }
+}
+
+a {
+    color: $color2;
+    text-decoration: none;
+    //font-weight: bold;
+    transition: 1s;
+
+    &:hover {
+        color: $color4;
+    }
+}
