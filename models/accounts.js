@@ -10,6 +10,9 @@ const p = path.join(path.dirname(require.main.filename),
 'users.json'
 );
 
+// In DirectAdmin with Node.JS App this is the way to call the json file
+//const p = path.join(__dirname, '..', 'data', 'users.json');
+
 // Function to read the file
 const getUsersFromFile = (cb) => {
   fs.readFile(p, (err, fileContent) => {
