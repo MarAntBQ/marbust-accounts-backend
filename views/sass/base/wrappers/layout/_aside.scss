@@ -1,0 +1,28 @@
+&__aside {
+  width: 250px;
+  min-width: 250px;
+  @include break-m {
+    border-right: 1px solid $color-darkblue;
+  }
+  &-title {
+    color: $color-black;
+    font-size: 20px;
+    border-bottom: 1px solid $color-darkblue;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-family: $font-headings;
+    padding-bottom: 10px;
+  }
+  &-data {
+    margin-bottom: 5px;
+    &--email {
+      max-width: 100%;
+      text-overflow: ellipsis;
+      overflow-x: hidden;
+    }
+  }
+  .btn {
+    margin-top: 15px;
+  }
+}

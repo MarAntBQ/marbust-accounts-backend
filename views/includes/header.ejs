@@ -1,0 +1,24 @@
+    <div class="header__wrapper">
+        <a href="/" class="header__logo"><img src="/img/header/logoFullColor.png" alt="Marbust Technology Company Logo"
+                class="header__logo-img"></a>
+        <nav class="header__nav js-header-nav">
+            <ul>
+                <% if (moduleName === 'dashboard') { %>
+                    <li><a href="/dashboard/" class="<%= pagetoLoad === 'dashboard/home' ? 'active' : '' %>">Dashboard</a></li>
+                    <li><a href="/admin/" class="<%= pagetoLoad === 'admin/home' ? 'active' : '' %>">Admin</a></li>
+                    <li><a href="/account-setup/logout">Logout</a></li>
+                <% } else if (moduleName === 'admin') { %>
+                    <li><a href="/dashboard/">Dashboard</a></li>
+                    <li><a href="/admin/" class="<%= pagetoLoad === 'admin/home' ? 'active' : '' %>">Admin</a></li>
+                    <li><a href="/admin/users" class="<%= pagetoLoad === 'admin/users' || pagetoLoad === 'admin/user-details'  ? 'active' : '' %>">Users</a></li>
+                    <li><a href="/admin/orders" class="<%= pagetoLoad === 'admin/orders' ? 'active' : '' %>">Orders</a></li>
+                    <li><a href="/account-setup/logout">Logout</a></li>
+                <% } else { %>
+                <li><a href="/"  class="<%= pagetoLoad === 'home' ? 'active'  : '' %>">Home <i class="fas fa-home"></i></a></li>
+                <li><a  class="<%= pagetoLoad === 'account-setup/login' ? 'active' : '' %>" href="/account-setup/login">Login <i class="fas fa-sign-in-alt"></i></a></li>
+                <li><a  class="<%= pagetoLoad === 'account-setup/register' ? 'active'  : '' %>"href="/account-setup/register">Create Account <i class="fas fa-user-plus"></i></a></li>
+                <% } %>
+            </ul>
+        </nav>
+        <i class="fa-solid fa-bars header__btn js-header-btn-open"></i>
+    </div>

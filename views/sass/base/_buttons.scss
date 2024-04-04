@@ -1,0 +1,98 @@
+.btn {
+  border-radius: 5px;
+  background: $color-darkblue;
+  color: $color-white;
+  cursor: pointer;
+  display: block;
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+  width: 200px;
+  &:hover {
+    background: $color-skyblue;
+    color: $color-white;
+  }
+  &--center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &--secondary {
+    background: $color-yellow;
+    color: $color-black;
+    &:hover {
+      background: $color-black;
+      color: $color-white;
+    }
+  }
+  &--terciary {
+    background: $color-white;
+    color: $color-darkblue;
+  }
+}
+
+.wsp-msg {
+  position: fixed;
+  bottom: 22px;
+  right: 60px;
+  padding: 5px 10px;
+  background: #ECE5DD;
+  color: black;
+  border-radius: 10px;
+  font-weight: bold;
+  transform: scale(0);
+  transform: translateX(200px);
+  animation: 3s ease wspdsp;
+
+  @keyframes wspdsp {
+      0% {
+          transform: translateY(100px) translateX(0px);
+      }
+
+      50% {
+          transform: translateY(0px)
+      }
+
+      100% {
+          transform: translateX(200px);
+      }
+  }
+}
+
+.wsp-btn {
+  &,
+  * {
+    transition: 0.5s all;
+  }
+  display: flex;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background: #25D366;
+  color: white;
+  font-size: 30px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  &:hover {
+    background: #075E54;
+    color: white;
+    i {
+      transform: rotate(15deg);
+    }
+  }
+  transform: translateX(0px);
+  animation: 1s ease wspdsp2;
+  @keyframes wspdsp2 {
+    from {
+      transform: translateX(50px);
+    }
+    to {
+      transform: translateX(0px);
+    }
+  }
+}

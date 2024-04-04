@@ -1,0 +1,11 @@
+<div class="<%= moduleSection %>__form">
+  <div class="wrapper">
+    <h1>Sign In</h1>
+    <form action="/account-setup/controller" method="POST">
+      <p><input type="text" name="email" placeholder="Insert your email"></p>
+      <p><input type="password" name="password" placeholder="Insert your password"></p>
+      <button type="submit" class="btn">Login</button>
+      <input name="form_action" value="login" hidden>
+    </form>
+  </div>
+</div>

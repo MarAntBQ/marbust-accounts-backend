@@ -1,0 +1,11 @@
+$this: #{admin-users};
+.path-#{$this} {
+  .#{$this} {
+    &__welcome {
+      padding: 50px 0;
+      h1 {
+        text-align: center;
+      }
+    }
+  }
+}

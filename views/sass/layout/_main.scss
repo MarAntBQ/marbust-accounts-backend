@@ -1,0 +1,13 @@
+main {
+  margin-top: $header-height;
+  transition: 0.3s;
+  color: $color-black;
+  &.#{&} {
+    &--menu-active {
+      filter: blur(4px);
+      @include break-i {
+        filter: unset;
+      }
+    }
+  }
+}

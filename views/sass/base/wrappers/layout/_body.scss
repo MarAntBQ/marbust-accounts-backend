@@ -1,0 +1,9 @@
+&__body {
+  @include break-m {
+    display: flex;
+  }
+}
+&__aside,
+&__section {
+  padding: 10px;
+}

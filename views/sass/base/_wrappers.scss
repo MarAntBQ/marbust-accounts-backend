@@ -1,0 +1,11 @@
+.wrapper {
+  @include wrapperSettings;
+  padding: 0 20px;
+  @include break-m {
+    padding: 0 25px;
+  }
+  @include break-i {
+    padding: 0 30px;
+  }
+  @import 'wrappers/layout.scss';
+}

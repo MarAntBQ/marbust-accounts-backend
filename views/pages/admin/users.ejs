@@ -1,0 +1,69 @@
+<div class="<%= moduleSection %>__welcome">
+  <div class="wrapper wrapper--layout">
+    <div class="wrapper__breadcrumb">Admin / Users</div>
+    <div class="wrapper__body">
+      <aside class="wrapper__aside">
+        <p class="wrapper__aside-title"><i class="fas fa-tachometer-alt"></i> Options</p>
+        <a href="#" class="btn btn--secondary btn--center"><i class="fas fa-user-plus"></i> Add New</a>
+        <a href="/admin" class="btn btn--center"><i class="fas fa-angle-left"></i> Back</a>
+      </aside>
+      <section class="wrapper__section wrapper__section--table-container">
+        <div class="table__results">
+          <div class="table__results-total">Total Results: (<span>5</span>)</div>
+          <div class="table__results-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search">
+          </div>
+        </div>
+        <div class="table__body">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (usrs.length > 0) { %>
+                <% for (let user of usrs) { %>
+                  <tr>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.phone %></td>
+                    <td class="options">
+                      <a href="/admin/user-details/<%= user.id %>?edit=true" class="options__info"><i class="fas fa-info-circle"></i></a>
+                      <a href="#" class="options__update-password"><i class="fas fa-key"></i></a>
+                    </td>
+                  </tr>
+                <% } %>
+                <% } else { %>
+                <p>Not users found!</p>
+                <% } %>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination">
+          <div>
+            Ver
+            <select name="results">
+              <option value="10">10</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="all">All</option>
+            </select>
+            usuarios
+          </div>
+          <div>
+            <a href="#">Before</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">Next</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

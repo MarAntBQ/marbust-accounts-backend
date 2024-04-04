@@ -1,0 +1,29 @@
+&__banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: $color-blue;
+  @include Banner($imgUrl, 100vh);
+  &-title {
+    font-size: 30px;
+    @include break-s {
+      font-size: 35px;
+    }
+    @include break-m {
+      font-size: 40px;
+    }
+    @include break-i {
+      font-size: 50px;
+    }
+  }
+  .wrapper {        
+    &__buttons {
+      margin-top: 25px;
+      display: flex;
+      flex-wrap: wrap;
+      .btn {
+        margin: 5px 0;
+      }
+    }
+  }
+}

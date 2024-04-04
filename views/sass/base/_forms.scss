@@ -1,0 +1,22 @@
+form {
+  max-width: 600px;
+  margin: 0 auto;
+ input {
+  width: 100%;
+  border: 1px solid $color-darkblue;
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 17px;
+  font-family: inherit;
+  color: $color-darkblue;
+  font-weight: bold;
+ }
+ button {
+   border: 0;
+   display: block;
+   margin: 0 auto;
+   font-family: inherit;
+ }
+}

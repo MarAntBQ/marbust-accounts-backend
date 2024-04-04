@@ -1,0 +1,8 @@
+$imgUrl: url(../img/pages/account/register/banner.jpg);
+$this: #{404};
+.path-#{$this} {
+  margin-top: unset;
+  .page-#{$this} {
+    @import '404/banner';
+  }
+}

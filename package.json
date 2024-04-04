@@ -1,0 +1,35 @@
+{
+  "name": "marbustaccounts",
+  "version": "2.0.0",
+  "description": "Marbust Accounts V2 with Node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarAntBQ/MarbustAccounts.git"
+  },
+  "keywords": [
+    "marbust",
+    "technology",
+    "company",
+    "accounts",
+    "system"
+  ],
+  "author": "Marco Antonio Bustillos (Marbust Technology Company)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarAntBQ/MarbustAccounts/issues"
+  },
+  "homepage": "https://github.com/MarAntBQ/MarbustAccounts#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.19.2"
+  }
+}
