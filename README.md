@@ -1,5 +1,5 @@
 # Marbust Accounts V 1.0.0
-#System to handle the business logic in Marbust Technology Company
+## System to handle the business logic in Marbust Technology Company
 ---
 Last Update:
 ---
