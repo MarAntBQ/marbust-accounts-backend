@@ -2,6 +2,9 @@ const express = require('express');
 
 const adminController = require('../controllers/admin');
 
+// Import Accounts Controller
+const accountsController = require('../controllers/accounts');
+
 const router = express.Router();
 
 // Admin Home Page
@@ -13,7 +16,7 @@ router.get('/users', adminController.getUsers);
 // Show User Details
 router.get('/user-details/:userId', adminController.getUserDetails);
 
-// Save User Details
+// Save User Details or Delete
 router.post('/user-details/', adminController.updateUser);
 
 // Export Router to main App

@@ -7,12 +7,15 @@ const Account = require('../models/accounts');
 // Show Admin Dashboard
 exports.getHome = (req, res, next) => {
   let tempPath = 'home';
-  res.render('template', {
-    pageTitle: 'Admin Dashboard',
-    moduleName: moduleName,
-    pagetoLoad: `${moduleName}/${tempPath}`,
-    moduleSection: `${moduleName}-${tempPath}`,
-  });
+  Account.getUsersCount(count => {
+    res.render('template', {
+      pageTitle: 'Admin Dashboard',
+      moduleName: moduleName,
+      pagetoLoad: `${moduleName}/${tempPath}`,
+      moduleSection: `${moduleName}-${tempPath}`,
+      totalusers: count
+    });
+  })
 }
 // Show Admin -> Users Dashboard
 exports.getUsers = (req, res, next) => {
@@ -52,15 +55,20 @@ exports.getUserDetails = (req, res, next) => {
   });
 }
 
-// Accounts Login for both Login and Registration
+// Post Update User or Delete User
 exports.updateUser = (req, res, next)=> {
+  // Getting data from the form
   let userId = req.body.id;
-  let userName = req.body.name;
-  let userEmail = req.body.email;
-  let userPhone = req.body.phone;
-
+  
   if (req.body.form_action == 'edit') {
-    Account.updateById(userId, userName, userEmail, userPhone);
+    let updatedName = req.body.name;
+    let updatedEmail = req.body.email;
+    let updatedPhone = req.body.phone;
+    const updatedUser = new Account(userId, updatedName, updatedEmail, null, updatedPhone);
+    updatedUser.save();
+    res.redirect('/admin/users');
+  } if (req.body.form_action == 'delete') {
+    Account.deleteUserById(userId);
     res.redirect('/admin/users');
   } else {
     res.redirect('/');

@@ -40,7 +40,7 @@ exports.accountsSetup = (req, res, next)=> {
   let userPhone = req.body.phone;
 
   if (req.body.form_action == 'register') {
-    const account = new Account(userName, userEmail, userPassword, userPhone);
+    const account = new Account(null, userName, userEmail, userPassword, userPhone);
     account.save();
     res.redirect('/account-setup/login');
   } else if (req.body.form_action == 'login') {

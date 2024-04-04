@@ -24,7 +24,8 @@ const getUsersFromFile = (cb) => {
 
 // Create Class and export it to make it available outside this file
 module.exports = class UserAccount {
-  constructor(name, email, password, phone) {
+  constructor(id, name, email, password, phone) {
+    this.id = id;
     this.name = name;
     this.email = email;
     this.password = password;
@@ -32,14 +33,39 @@ module.exports = class UserAccount {
   }
 
   save() {
-    this.id = Math.random().toString();
     getUsersFromFile(users => {
-      // We are pushing this class
-      users.push(this);
+      if (this.id) {
+        const existingUserIndex = users.findIndex(u => u.id === this.id);
+        const updatedUsers = [...users];
+        let pastPassword = updatedUsers[existingUserIndex].password;
+        this.password = pastPassword;
+        updatedUsers[existingUserIndex] = this;
+        fs.writeFile(p, JSON.stringify(updatedUsers), (err) => {
+          console.log(err);
+        });
+      } else {
+        this.id = Math.random().toString();
+        // We are pushing this class
+        users.push(this);
+        fs.writeFile(p, JSON.stringify(users), (err) => {
+          console.log(err);
+        });
+      }
+    });
+  }
+  static deleteUserById(id) {
+    getUsersFromFile(users => {
+      const existingUserIndex = users.findIndex(u => u.id === id);
+      users.splice(existingUserIndex, 1);
       fs.writeFile(p, JSON.stringify(users), (err) => {
         console.log(err);
       });
     });
+  }
+  static getUsersCount(cb) {
+    getUsersFromFile(users => {
+      cb(users.length);
+    })
   }
   // Creating a call back
   static fetchAll(cb) {
@@ -50,23 +76,6 @@ module.exports = class UserAccount {
     getUsersFromFile(users => {
       const user = users.find(u => u.id === id)
       cb(user);
-    });
-  }
-
-  static updateById(id, name, email, phone) {
-    getUsersFromFile(users => {
-      const checkIndex = users.findIndex(u => u.id === id);
-      if (checkIndex !== -1) {
-        let updatedUser = { ...users[checkIndex] }
-        updatedUser.name = name;
-        updatedUser.email = email;
-        updatedUser.phone = phone;
-
-        users[checkIndex] = updatedUser;
-        fs.writeFile(p, JSON.stringify(users), err => {
-          console.log(err);
-        });
-      }
     });
   }
 }

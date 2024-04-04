@@ -9,5 +9,10 @@
         <input name="form_action" value="edit" hidden>
         <input name="id" value="<%= usr.id %>" hidden>
       </form>
+      <form action="/admin/user-details" method="POST" class="button-form">
+        <button type="submit" class="btn btn--alert">Delete Account <i class="fas fa-user-times"></i></button>
+        <input name="form_action" value="delete" hidden>
+        <input name="id" value="<%= usr.id %>" hidden>
+      </form>
     </div>
   </div>
