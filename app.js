@@ -6,6 +6,9 @@ const bodyParser = require('body-parser'); // Body Parse to use req.body
 // Import Error Controller for both 404 & 500 
 const errorController = require('./controllers/error');
 
+// Import DataBase connector
+const db = require('./util/database');
+
 // Create an app and make it be an express app
 const app = express();
 

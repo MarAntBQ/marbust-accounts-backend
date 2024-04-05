@@ -2,10 +2,11 @@
     <div class="wrapper">
       <h1>Sign up</h1>
       <form action="/account-setup/controller" method="POST">
-        <p><input type="text" name="name" placeholder="Insert your name"></p>
+        <p><input type="text" name="first_name" placeholder="Insert your first name"></p>
+        <p><input type="text" name="last_name" placeholder="Insert your last name"></p>
         <p><input type="text" name="email" placeholder="Insert your email"></p>
-        <p><input type="password" name="password" placeholder="Insert your password"></p>
         <p><input type="tel" name="phone" placeholder="Insert your phone number"></p>
+        <p><input type="password" name="password" placeholder="Insert your password"></p>
         <button type="submit" class="btn">Create Account</button>
         <input name="form_action" value="register" hidden>
       </form>

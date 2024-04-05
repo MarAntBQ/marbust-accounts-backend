@@ -2,3 +2,4 @@ npm install nodemon --save-dev // Nodemon
 npm install --save express // Express Framework
 npm install --save body-parser // Works with Express to parse the info in the post mode
 npm install --save ejs // The Template Engine
+npm install --save mysql2 // Install conector to mysql

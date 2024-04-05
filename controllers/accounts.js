@@ -34,15 +34,20 @@ exports.logoutSettings = (req, res, next) => {
 
 // Accounts Login for both Login and Registration
 exports.accountsSetup = (req, res, next)=> {
-  let userName = req.body.name;
+  let userFirstName = req.body.first_name;
+  let userLastName = req.body.last_name;
   let userEmail = req.body.email;
-  let userPassword = req.body.password;
   let userPhone = req.body.phone;
+  let userPassword = req.body.password;
 
   if (req.body.form_action == 'register') {
-    const account = new Account(null, userName, userEmail, userPassword, userPhone);
-    account.save();
-    res.redirect('/account-setup/login');
+    const account = new Account(null, userFirstName, userLastName, userEmail, userPhone, userPassword, 1);
+    account
+    .save()
+    .then(() => {
+      res.redirect('/account-setup/login');
+    })
+    .catch(err => console.log(err));
   } else if (req.body.form_action == 'login') {
     res.redirect('/dashboard');
   } else {
