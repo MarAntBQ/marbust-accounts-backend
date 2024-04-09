@@ -2,6 +2,7 @@
 
 // Import Accounts Model
 const Account = require('../models/accounts');
+const UserItems = require('../models/user-item');
 
 const moduleName = 'account-setup';
 
@@ -41,13 +42,38 @@ exports.accountsSetup = (req, res, next)=> {
   let userPassword = req.body.password;
 
   if (req.body.form_action == 'register') {
-    const account = new Account(null, userFirstName, userLastName, userEmail, userPhone, userPassword, 1);
-    account
-    .save()
+    Account.create({
+      first_name: userFirstName,
+      last_name: userLastName,
+      email: userEmail,
+      phone: userPhone,
+      password: userPassword,
+      level_id: 1
+    })
     .then(() => {
       res.redirect('/account-setup/login');
     })
     .catch(err => console.log(err));
+    
+    // id: {
+    //   type: Sequelize.INTEGER,
+    //   autoIncrement: true,
+    //   allowNull: false,
+    //   primaryKey: true
+    // },
+    // first_name: Sequelize.STRING,
+    // last_name: Sequelize.STRING,
+    // email: Sequelize.STRING,
+    // password: Sequelize.STRING,
+    // level_id: Sequelize.INTEGER,
+    
+    // const account = new Account(null, userFirstName, userLastName, userEmail, userPhone, userPassword, 1);
+    // account
+    // .save()
+    // .then(() => {
+    //   res.redirect('/account-setup/login');
+    // })
+    // .catch(err => console.log(err));
   } else if (req.body.form_action == 'login') {
     res.redirect('/dashboard');
   } else {

@@ -7,13 +7,13 @@ const Account = require('../models/accounts');
 // Show Admin Dashboard
 exports.getHome = (req, res, next) => {
   let tempPath = 'home';
-  Account.getUsersCount().then(([count]) => {
+  Account.count().then(count => {
     res.render('template', {
       pageTitle: 'Admin Dashboard',
       moduleName: moduleName,
       pagetoLoad: `${moduleName}/${tempPath}`,
       moduleSection: `${moduleName}-${tempPath}`,
-      totalUsers: count[0].total_users
+      totalUsers: count
     });
   })
   .catch(err => console.log(err));
@@ -21,14 +21,14 @@ exports.getHome = (req, res, next) => {
 // Show Admin -> Users Dashboard
 exports.getUsers = (req, res, next) => {
   let tempPath = 'users';
-  Account.fetchAll()
-    .then(([rows, fieldData]) => {
+  Account.findAll()
+    .then(users => {
       res.render('template', {
         pageTitle: 'Admin Dashboard > Users',
         moduleName: moduleName,
         pagetoLoad: `${moduleName}/${tempPath}`,
         moduleSection: `${moduleName}-${tempPath}`,
-        usrs: rows
+        usrs: users
       });
     })
     .catch(err => console.log(err));

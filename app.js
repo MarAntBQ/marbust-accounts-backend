@@ -7,7 +7,7 @@ const bodyParser = require('body-parser'); // Body Parse to use req.body
 const errorController = require('./controllers/error');
 
 // Import DataBase connector
-const db = require('./util/database');
+const sequelize = require('./util/database');
 
 // Create an app and make it be an express app
 const app = express();
@@ -38,5 +38,14 @@ app.use('/dashboard', dashboardRoutes)
 // 404
 app.use(errorController.get404Page);
 
+// Sync database
+sequelize
+.sync()
+.then(result => {
+  app.listen(80);
+})
+.catch(err => {
+  console.log(err)
+});
+
 // Run the App over the port 80 >> default >> localhost/
-app.listen(80);
