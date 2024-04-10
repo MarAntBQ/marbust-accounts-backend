@@ -1,10 +1,15 @@
 // Accounts Controller
 
 // Import Accounts Model
-const Account = require('../models/accounts');
-const UserItems = require('../models/user-item');
+const User = require('../models/user');
+const Item = require('../models/item');
+const MenuCategory = require('../models/menu_category');
+const Role = require('../models/role');
+const ItemUserCategory = require('../models/item-user-category');
 
 const moduleName = 'account-setup';
+
+
 
 // Show Register Page
 exports.getRegister = (req, res, next) => {
@@ -42,7 +47,7 @@ exports.accountsSetup = (req, res, next)=> {
   let userPassword = req.body.password;
 
   if (req.body.form_action == 'register') {
-    Account.create({
+    User.create({
       first_name: userFirstName,
       last_name: userLastName,
       email: userEmail,

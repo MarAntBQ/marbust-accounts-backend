@@ -10,6 +10,9 @@ const router = express.Router();
 // Admin Home Page
 router.get('/', adminController.getHome);
 
+// Admin Dashboard Menu Handler with /dashboard/route/
+router.get('/:firstRoute', adminController.getMenuHandler1);
+
 // Admin All Users Page
 router.get('/users', adminController.getUsers);
 

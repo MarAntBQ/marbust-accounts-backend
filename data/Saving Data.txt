@@ -1,0 +1,65 @@
+const Role = require('../models/role');
+// Role.create({
+//   name: 'User'
+// })
+// .then(() => {
+//   res.redirect('/account-setup/login');
+// })
+// .catch(err => console.log(err));
+
+// Role.create({
+//   name: 'Technician'
+// })
+// .then(() => {
+//   res.redirect('/account-setup/login');
+// })
+// .catch(err => console.log(err));
+
+
+// Role.create({
+//   name: 'Admin'
+// })
+// .then(() => {
+//   res.redirect('/account-setup/login');
+// })
+// .catch(err => console.log(err));
+
+const MenuCategory = require('../models/menu_category');
+MenuCategory.create({
+  name: 'Marbust Education®',
+  icon: 'fa-solid fa-user-graduate',
+  role_id: 1,
+  level: 1,
+  active: true
+})
+.then(() => {
+  res.redirect('/');
+})
+.catch(err => console.log(err));
+
+name: 'Marbust Computers®',
+  icon: 'fa-solid fa-desktop',
+  role_id: 1,
+  level: 1,
+  active: true
+
+
+name: 'My Profile',
+  icon: 'fa-solid fa-address-card',
+  role_id: 1,
+  level: 1,
+  active: true
+
+name: 'Change Password',
+  icon: 'fa-solid fa-key',
+  role_id: 1,
+  level: 1,
+  active: true,
+url: '/profile/password/',
+parent_category_id: 2
+
+name: 'Admin',
+  icon: 'fa-solid fa-lock',
+  role_id: 3,
+  level: 1,
+  active: true

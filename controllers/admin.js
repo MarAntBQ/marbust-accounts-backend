@@ -1,27 +1,89 @@
 const moduleName = 'admin';
 
+const currentUserRole = 3
+
 // Import Accounts Model
-const Account = require('../models/accounts');
+const User = require('../models/user');
+const MenuCategory = require('../models/menu_category');
+
+MenuCategory.create({
+  name: 'Orders',
+  icon: 'fa-solid fa-key',
+  role_id: 1,
+  level: 2,
+  active: true,
+url: '/computers/orders',
+parent_category_id: 3
+})
+.then(() => {
+  res.redirect('/');
+})
+.catch(err => console.log(err));
 
 
 // Show Admin Dashboard
 exports.getHome = (req, res, next) => {
   let tempPath = 'home';
-  Account.count().then(count => {
-    res.render('template', {
-      pageTitle: 'Admin Dashboard',
-      moduleName: moduleName,
-      pagetoLoad: `${moduleName}/${tempPath}`,
-      moduleSection: `${moduleName}-${tempPath}`,
-      totalUsers: count
-    });
+  MenuCategory.findAll({
+    where: {
+      parent_category_id: 1
+    }
   })
-  .catch(err => console.log(err));
+    .then(categories => {
+      res.render('template', {
+        pageTitle: 'Admin Dashboard',
+        moduleName: moduleName,
+        pagetoLoad: `dashboards/main`,
+        moduleSection: `${moduleName}-${tempPath}`,
+        cats: categories,
+        user_role: currentUserRole
+      });
+    })
+    .catch(err => console.log(err));
 }
+
+// Get /admin/route1/
+exports.getMenuHandler1 = (req, res, next) => {
+  const firstRoute = req.params.firstRoute;
+  let tempPath = 'home';
+  MenuCategory.findAll({
+    where: {
+      url: `/admin/${firstRoute}/`
+    }
+  })
+    .then(optionFound => {
+      if (!optionFound || optionFound.length === 0) {
+        next();
+      }
+      console.log(optionFound)
+      MenuCategory.findAll({
+        where: {
+          parent_category_id: optionFound[0].id
+        }
+      })
+        .then(categories => {
+          if (categories && categories.length > 0) {
+            res.render('template', {
+              pageTitle: optionFound[0].name,
+              moduleName: moduleName,
+              pagetoLoad: `dashboards/main`,
+              moduleSection: `${moduleName}-${tempPath}`,
+              cats: categories,
+              user_role: currentUserRole
+            });
+          } else {
+            next();
+          }
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+}
+
 // Show Admin -> Users Dashboard
 exports.getUsers = (req, res, next) => {
   let tempPath = 'users';
-  Account.findAll()
+  User.findAll()
     .then(users => {
       res.render('template', {
         pageTitle: 'Admin Dashboard > Users',
@@ -44,19 +106,19 @@ exports.getUserDetails = (req, res, next) => {
   // It's extracting from /user-details/:userId
   const userId = req.params.userId;
 
-  Account.findById(userId)
-    .then(([user]) => {
-      if (!user[0]) {
+  User.findByPk(userId)
+    .then(user => {
+      if (!user) {
         res.redirect('/admin/users');
       }
       console.log(user)
       res.render('template', {
-        pageTitle: 'Details of ' + user[0].first_name,
+        pageTitle: 'Details of ' + user.first_name,
         moduleName: moduleName,
         pagetoLoad: `${moduleName}/${tempPath}`,
         moduleSection: `${moduleName}-${tempPath}`,
         editing: editMode,
-        usr: user[0]
+        usr: user
       });
     })
     .catch(err => console.log(err));  
@@ -68,14 +130,15 @@ exports.updateUser = (req, res, next)=> {
   let userId = req.body.id;
   
   if (req.body.form_action == 'edit') {
-    let updatedName = req.body.name;
+    let userFirstName = req.body.first_name;
+    let userLastName = req.body.last_name;
     let updatedEmail = req.body.email;
     let updatedPhone = req.body.phone;
-    const updatedUser = new Account(userId, userFirstName, userLastName, updatedEmail, updatedPhone, null, 1);
+    const updatedUser = new User(userId, userFirstName, userLastName, updatedEmail, updatedPhone, null, 1);
     updatedUser.save();
     res.redirect('/admin/users');
   } if (req.body.form_action == 'delete') {
-    Account.deleteUserById(userId)
+    User.deleteUserById(userId)
     .then(() => {
       res.redirect('/admin/users');
     })
