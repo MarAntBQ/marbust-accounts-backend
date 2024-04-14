@@ -2,13 +2,13 @@ const moduleName = 'dashboard';
 
 const currentUserRole = 3;
 
-const MenuCategory = require('../models/menu_category');
+const MenuOption = require('../models/menu_option');
 
 
 // Show Main Dashboard for accounts
 exports.getHome = (req, res, next) => {
   let tempPath = 'home';
-  MenuCategory.findAll({
+  MenuOption.findAll({
     where: {
       level: 1
     }
@@ -30,7 +30,7 @@ exports.getHome = (req, res, next) => {
 exports.getMenuHandler1 = (req, res, next) => {
   const firstRoute = req.params.firstRoute;
   let tempPath = 'home';
-  MenuCategory.findAll({
+  MenuOption.findAll({
     where: {
       url: `/dashboard/${firstRoute}/`
     }
@@ -40,9 +40,9 @@ exports.getMenuHandler1 = (req, res, next) => {
         next();
       }
       console.log(optionFound)
-      MenuCategory.findAll({
+      MenuOption.findAll({
         where: {
-          parent_category_id: optionFound[0].id
+          parent_option_id: optionFound[0].id
         }
       })
         .then(categories => {

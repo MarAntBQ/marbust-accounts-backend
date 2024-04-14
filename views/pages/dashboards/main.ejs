@@ -8,5 +8,9 @@
       <a href="/admin/user-details/1?edit=true" class="btn btn--center"><i class="fas fa-edit"></i> Edit</a>
     </div>
   </aside>
-  <%- include('menu.ejs')%>
+  <% if (type == 'menu') { %>
+    <%- include('menu.ejs')%>
+    <% } else { %>
+      <%- include('table.ejs')%>
+  <% } %>
 </div>

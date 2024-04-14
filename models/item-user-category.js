@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../util/database');
 const User = require('./user');
-const MenuCategory = require('./menu_category');
+const ItemCategory = require('./item_category');
 const Item = require('./item');
 
-const UserItemMenuAssociation = sequelize.define('item_user_category', {
+const ItemUserCategory = sequelize.define('item_user_category', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -27,18 +27,18 @@ const UserItemMenuAssociation = sequelize.define('item_user_category', {
       key: 'id'
     }
   },
-  menu_category_id: {
+  category_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: 'menu_categories',
+      model: 'item_categories',
       key: 'id'
     }
   }
 });
 
-UserItemMenuAssociation.belongsTo(User, { foreignKey: 'user_id' });
-UserItemMenuAssociation.belongsTo(Item, { foreignKey: 'item_id' });
-UserItemMenuAssociation.belongsTo(MenuCategory, { foreignKey: 'menu_category_id' });
+ItemUserCategory.belongsTo(User, { foreignKey: 'user_id' });
+ItemUserCategory.belongsTo(Item, { foreignKey: 'item_id' });
+ItemUserCategory.belongsTo(ItemCategory, { foreignKey: 'category_id' });
 
-module.exports = UserItemMenuAssociation;
+module.exports = ItemUserCategory;

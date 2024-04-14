@@ -4,29 +4,15 @@ const currentUserRole = 3
 
 // Import Accounts Model
 const User = require('../models/user');
-const MenuCategory = require('../models/menu_category');
-
-MenuCategory.create({
-  name: 'Orders',
-  icon: 'fa-solid fa-key',
-  role_id: 1,
-  level: 2,
-  active: true,
-url: '/computers/orders',
-parent_category_id: 3
-})
-.then(() => {
-  res.redirect('/');
-})
-.catch(err => console.log(err));
-
+const MenuOption = require('../models/menu_option');
+const Role = require('../models/role');
 
 // Show Admin Dashboard
 exports.getHome = (req, res, next) => {
   let tempPath = 'home';
-  MenuCategory.findAll({
+  MenuOption.findAll({
     where: {
-      parent_category_id: 1
+      parent_option_id: 1
     }
   })
     .then(categories => {
@@ -36,6 +22,7 @@ exports.getHome = (req, res, next) => {
         pagetoLoad: `dashboards/main`,
         moduleSection: `${moduleName}-${tempPath}`,
         cats: categories,
+        type: 'menu',
         user_role: currentUserRole
       });
     })
@@ -46,7 +33,7 @@ exports.getHome = (req, res, next) => {
 exports.getMenuHandler1 = (req, res, next) => {
   const firstRoute = req.params.firstRoute;
   let tempPath = 'home';
-  MenuCategory.findAll({
+  MenuOption.findAll({
     where: {
       url: `/admin/${firstRoute}/`
     }
@@ -56,9 +43,9 @@ exports.getMenuHandler1 = (req, res, next) => {
         next();
       }
       console.log(optionFound)
-      MenuCategory.findAll({
+      MenuOption.findAll({
         where: {
-          parent_category_id: optionFound[0].id
+          parent_option_id: optionFound[0].id
         }
       })
         .then(categories => {
@@ -69,6 +56,7 @@ exports.getMenuHandler1 = (req, res, next) => {
               pagetoLoad: `dashboards/main`,
               moduleSection: `${moduleName}-${tempPath}`,
               cats: categories,
+              type: 'menu',
               user_role: currentUserRole
             });
           } else {
@@ -90,7 +78,35 @@ exports.getUsers = (req, res, next) => {
         moduleName: moduleName,
         pagetoLoad: `${moduleName}/${tempPath}`,
         moduleSection: `${moduleName}-${tempPath}`,
+        type: 'table',
         usrs: users
+      });
+    })
+    .catch(err => console.log(err));
+}
+
+// Show Admin -> Users Dashboard
+exports.getRoles = (req, res, next) => {
+  let tempPath = 'roles';
+  Role.findAll()
+    .then(roles => {
+      const tableHeaders = ['ID', 'Name'];
+      const tableRows = roles.map(role => [
+        role.id,
+        role.name,
+      ]);
+      const dataTableOptions = `
+      responsive: true
+      `;
+      res.render('template', {
+        pageTitle: 'Admin Dashboard > Roles',
+        moduleName: moduleName,
+        pagetoLoad: `dashboards/main`,
+        moduleSection: `${moduleName}-${tempPath}`,
+        table_headers: tableHeaders,
+        type: 'table',
+        rows: tableRows,
+        dtoptions: dataTableOptions
       });
     })
     .catch(err => console.log(err));

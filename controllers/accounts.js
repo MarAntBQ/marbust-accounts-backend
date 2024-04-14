@@ -3,7 +3,8 @@
 // Import Accounts Model
 const User = require('../models/user');
 const Item = require('../models/item');
-const MenuCategory = require('../models/menu_category');
+const ItemCategory = require('../models/item_category');
+const MenuOption = require('../models/menu_option');
 const Role = require('../models/role');
 const ItemUserCategory = require('../models/item-user-category');
 

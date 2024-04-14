@@ -14,6 +14,9 @@ router.get('/', adminController.getHome);
 router.get('/:firstRoute', adminController.getMenuHandler1);
 
 // Admin All Users Page
+router.get('/roles', adminController.getRoles);
+
+// Admin All Users Page
 router.get('/users', adminController.getUsers);
 
 // Show User Details
