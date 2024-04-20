@@ -18,7 +18,7 @@ app.set('views', 'views'); // Make the folder where EJS can take the templates
 
 
 // Importing Routes as "Data" because it can have differente paraments and functions, also the routes
-const mainRoutes = require('./routes/main');
+const noAuthRoutes = require('./routes/no-auth');
 const accountRoutes = require('./routes/account');
 const adminRoutes = require('./routes/admin');
 const dashboardRoutes = require('./routes/dashboard');
@@ -30,7 +30,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Using the Routes
-app.use(mainRoutes)
+app.use(noAuthRoutes)
 app.use('/account-setup', accountRoutes)
 app.use('/admin', adminRoutes)
 app.use('/dashboard', dashboardRoutes)
