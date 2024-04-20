@@ -12,28 +12,6 @@ const moduleName = 'account-setup';
 
 
 
-// Show Register Page
-exports.getRegister = (req, res, next) => {
-  let tempPath = 'register';
-  res.render('template', {
-    pageTitle: 'Create an Account',
-    moduleName: moduleName,
-    pagetoLoad: `${moduleName}/${tempPath}`,
-    moduleSection: `${moduleName}-${tempPath}`,
-  });
-}
-
-// Show Login Page
-exports.getLogin = (req, res, next) => {
-  let tempPath = 'login';
-  res.render('template', {
-    pageTitle: 'Login',
-    moduleName: moduleName,
-    pagetoLoad: `${moduleName}/${tempPath}`,
-    moduleSection: `${moduleName}-${tempPath}`,
-  });
-}
-
 // Logout Logic
 exports.logoutSettings = (req, res, next) => {
   res.redirect('/');

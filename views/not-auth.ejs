@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('includes/head.ejs')%>
+</head>
+
+<body class="not-auth">
+  <main class="form-section path-<%= moduleSection %>">
+    <div class="form-section__logo">
+      <img src="/img/header/logoFullColor.png" alt="Marbust Technology Company Logo" class="">
+    </div>
+    <h1 class="form-section__title"><%= pageTitle %></h1>
+    <%- include('pages/' + pagetoLoad) %>
+  </main>
+</body>
+
+</html>
