@@ -29,3 +29,14 @@ exports.getLogin = (req, res, next) => {
     moduleSection: `${moduleName}-${tempPath}`,
   });
 }
+
+exports.getRecoverPassword = (req, res, next) => {
+  let tempPath = 'recover-password';
+  res.render('not-auth', {
+    pageTitle: 'Recover Password',
+    pageIcon: '<i class="fa-solid fa-unlock"></i>',
+    moduleName: moduleName,
+    pagetoLoad: `${moduleName}/${tempPath}`,
+    moduleSection: `${moduleName}-${tempPath}`,
+  });
+}

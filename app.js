@@ -33,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(noAuthRoutes)
 app.use('/account-setup', accountRoutes)
 app.use('/admin', adminRoutes)
-app.use('/dashboard', dashboardRoutes)
+app.use(dashboardRoutes)
 
 // 404
 app.use(errorController.get404Page);

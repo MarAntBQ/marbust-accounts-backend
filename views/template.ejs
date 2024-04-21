@@ -5,16 +5,16 @@
   <%- include('includes/head.ejs')%>
 </head>
 
-<body>
+<body class="dashboard">
   <header>
     <%- include('includes/header.ejs')%>
   </header>
+  <div class="responsive-nav">
+    <%- include('includes/responsive-nav.ejs')%>
+  </div>
   <main class="path-<%= moduleSection %>">
     <%- include('pages/' + pagetoLoad) %>
   </main>
-  <footer>
-    <%- include('includes/footer.ejs')%>
-  </footer>
 </body>
 
 </html>

@@ -13,7 +13,7 @@ router.get('/login', noAuthController.getLogin);
 
 router.get('/register', noAuthController.getRegister);
 
-router.get('/password-recover', noAuthController.getHome);
+router.get('/recover-password', noAuthController.getRecoverPassword);
 
 // Export Router to main App
 module.exports = router;
