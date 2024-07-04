@@ -1,66 +1,62 @@
 // Accounts Controller
+const moduleName = 'account-setup';
 
 // Import Accounts Model
 const User = require('../models/user');
-const Item = require('../models/item');
-const ItemCategory = require('../models/item_category');
-const MenuOption = require('../models/menu_option');
 const Role = require('../models/role');
-const ItemUserCategory = require('../models/item-user-category');
-
-const moduleName = 'account-setup';
-
-
 
 // Logout Logic
 exports.logoutSettings = (req, res, next) => {
-  res.redirect('/');
+  res.redirect('/login');
 }
-
-// Accounts Login for both Login and Registration
-exports.accountsSetup = (req, res, next)=> {
+// Register
+exports.createAccount = (req, res, next)=> {
   let userFirstName = req.body.first_name;
   let userLastName = req.body.last_name;
   let userEmail = req.body.email;
   let userPhone = req.body.phone;
   let userPassword = req.body.password;
-
-  if (req.body.form_action == 'register') {
-    User.create({
-      first_name: userFirstName,
-      last_name: userLastName,
-      email: userEmail,
-      phone: userPhone,
-      password: userPassword,
-      level_id: 1
-    })
-    .then(() => {
-      res.redirect('/account-setup/login');
-    })
-    .catch(err => console.log(err));
-    
-    // id: {
-    //   type: Sequelize.INTEGER,
-    //   autoIncrement: true,
-    //   allowNull: false,
-    //   primaryKey: true
-    // },
-    // first_name: Sequelize.STRING,
-    // last_name: Sequelize.STRING,
-    // email: Sequelize.STRING,
-    // password: Sequelize.STRING,
-    // level_id: Sequelize.INTEGER,
-    
-    // const account = new Account(null, userFirstName, userLastName, userEmail, userPhone, userPassword, 1);
-    // account
-    // .save()
-    // .then(() => {
-    //   res.redirect('/account-setup/login');
-    // })
-    // .catch(err => console.log(err));
-  } else if (req.body.form_action == 'login') {
-    res.redirect('/dashboard');
-  } else {
-    res.redirect('/');
-  }
+  User.create({
+    first_name: userFirstName,
+    last_name: userLastName,
+    email: userEmail,
+    phone: userPhone,
+    password: userPassword,
+    role_id: 1
+  })
+  .then(() => {
+    res.redirect('/login');
+  })
+  .catch(err => console.log(err));
+}
+// Login
+exports.loginSetup = (req, res, next)=> {
+  let userEmail = req.body.email;
+  let userPassword =req.body.password;
+  User.findOne({ where: { email: userEmail } })
+  .then(user => {
+    if (user && user.password == userPassword) {
+      res.redirect('/home')
+    } else if (user) {
+      console.log('Incorrect Password');
+      res.redirect('/login');
+    } else {
+      console.log('User not found');
+      res.redirect('/login');
+    }
+  })
+}
+// Request password send to email
+exports.forgotPasswordSetup = (req, res, next)=> {
+  let userEmail = req.body.email;
+  User.findOne({ where: { email: userEmail } })
+  .then(user => {
+    if (user) {
+      console.log('Password has been sent to email');
+      res.redirect('/login');
+    } else {
+      console.log('User not found');
+      res.redirect('/register');
+    }
+  })
 }
