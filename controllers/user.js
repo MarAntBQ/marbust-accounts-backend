@@ -71,11 +71,26 @@ exports.login = async (req, res) => {
 
 exports.getProfile = async (req, res, next) => {
     try {
-        const user = await User.findByPk(req.userId);
+        const user = await User.findByPk(req.userId, {
+            attributes: ['id', 'firstName', 'lastName', 'email', 'phone', 'roleId'],
+            include: {
+                model: Role,
+                attributes: ['name']
+            }
+        });
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
         }
-        res.status(200).json({ user });
+        const userReponse = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            phone: user.phone,
+            role: user.Role.name
+        };
+
+        res.status(200).json({ userReponse });
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Fetching profile failed.' });
