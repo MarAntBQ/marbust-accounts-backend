@@ -23,16 +23,16 @@ exports.register = async (req, res) => {
         await checkAndCreateRoles();
         const { firstName, lastName, email, phone, password } = req.body;
 
-        // Verificar si el usuario ya existe
+        // Verify if user already exists
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
             return res.status(400).json({ error: 'User already exists' });
         }
 
-        // Crear usuario
+        // Create user
         const user = await User.create({ firstName, lastName, email, phone });
 
-        // Encriptar contraseña y crear credenciales de usuario
+        // Encrypt password and insert into UserCrential table
         const hashedPassword = await bcrypt.hash(password, 12);
         await UserCredential.create({ userId: user.id, password: hashedPassword });
 
@@ -47,20 +47,20 @@ exports.login = async (req, res) => {
         await checkAndCreateRoles();
         const { email, password } = req.body;
 
-        // Verificar si el usuario existe
+        // Check if user exists
         const user = await User.findOne({ where: { email } });
         if (!user) {
             return res.status(401).json({ message: 'User not found.' });
         }
 
-        // Verificar contraseña
+        // Check if password is correct
         const userCredential = await UserCredential.findOne({ where: { userId: user.id } });
         const isPasswordValid = await bcrypt.compare(password, userCredential.password);
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Wrong password.' });
         }
 
-        // Generar token JWT
+        // Generate token
         const token = jwt.sign({ userId: user.id, roleId: user.roleId },  config.jwtSecret, { expiresIn: '1h' });
 
         res.status(200).json({ token });
