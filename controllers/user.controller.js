@@ -42,6 +42,44 @@ exports.register = async (req, res) => {
     }
 };
 
+exports.verifyOtp = async (req, res) => {
+    try {
+        const { email, otpCode } = req.body;
+
+        // Check if user exists
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Check if OTP tries exceed the limit
+        if (user.otpTries >= 3) {
+            const newOtpCode = generateOtpCode();
+            user.otpCode = newOtpCode;
+            user.otpTries = 0;
+            await user.save();
+            return res.status(400).json({ message: 'OTP expired. A new OTP has been sent.' });
+        }
+
+        // Check if OTP is correct
+        if (user.otpCode !== otpCode) {
+            user.otpTries += 1;
+            await user.save();
+            return res.status(400).json({ message: 'Invalid OTP.' });
+        }
+
+        // Activate user
+        user.statusId = USER_STATUS.ACTIVE;
+        user.otpCode = null;
+        user.otpTries = 0;
+        await user.save();
+
+        res.status(200).json({ message: 'User activated successfully.' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -117,44 +155,5 @@ exports.getProfile = async (req, res, next) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Fetching profile failed.' });
-    }
-};
-
-
-exports.verifyOtp = async (req, res) => {
-    try {
-        const { email, otpCode } = req.body;
-
-        // Check if user exists
-        const user = await User.findOne({ where: { email } });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
-        }
-
-        // Check if OTP tries exceed the limit
-        if (user.otpTries >= 3) {
-            const newOtpCode = generateOtpCode();
-            user.otpCode = newOtpCode;
-            user.otpTries = 0;
-            await user.save();
-            return res.status(400).json({ message: 'OTP expired. A new OTP has been sent.' });
-        }
-
-        // Check if OTP is correct
-        if (user.otpCode !== otpCode) {
-            user.otpTries += 1;
-            await user.save();
-            return res.status(400).json({ message: 'Invalid OTP.' });
-        }
-
-        // Activate user
-        user.statusId = USER_STATUS.ACTIVE;
-        user.otpCode = null;
-        user.otpTries = 0;
-        await user.save();
-
-        res.status(200).json({ message: 'User activated successfully.' });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
     }
 };
