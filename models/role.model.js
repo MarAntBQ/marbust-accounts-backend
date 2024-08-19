@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../util/database');
+const sequelize = require('../util/database.util');
 
 const Role = sequelize.define('Role', {
   id: {
@@ -11,13 +11,21 @@ const Role = sequelize.define('Role', {
     type: DataTypes.STRING,
     allowNull: false
   }
+}, {
+  tableName: 'Roles',
+  hooks: {
+    afterSync: async (options) => {
+      const count = await Role.count();
+      if (count === 0) {
+        await Role.bulkCreate([
+          { name: 'User' },
+          { name: 'Supervisor' },
+          { name: 'Admin' },
+          { name: 'Superadmin' }
+        ]);
+      }
+    }
+  }
 });
 
-const createDefaultRoles = async () => {
-  const roles = ['User', 'Supervisor', 'Admin', 'Superadmin'];
-  for (let i = 0; i < roles.length; i++) {
-      await Role.findOrCreate({ where: { name: roles[i] } });
-  }
-};
-
-module.exports = { Role, createDefaultRoles };
+module.exports = Role;
