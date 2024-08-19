@@ -8,5 +8,12 @@ module.exports = {
     },
     server: {
         port: 3000
+    },
+    nodemailer: {
+        host: 'mail.domain.com',
+        port: 465,
+        secure: true,
+        user: 'MAILTRAP_USER',
+        password: 'MAILTRAP_PASSWORD'
     }
 };
