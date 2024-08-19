@@ -1,6 +1,9 @@
 npm install nodemon --save-dev // Nodemon
 npm install --save express // Express Framework
 npm install --save body-parser // Works with Express to parse the info in the post mode
-npm install --save ejs // The Template Engine
 npm install --save mysql2 // Install conector to mysql
 npm install --save sequelize // Install Sequelize
+npm install jsonwebtoken bcryptjs // Install JWT
+npm install validator --save // InstallValidator
+npm install cors --save // Install cors
+npm install multer --save  // Install multer
