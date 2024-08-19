@@ -2,9 +2,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
-const { Role, createDefaultRoles } = require('../models/role');
-const User = require('../models/user');
-const UserCredential = require('../models/userCredential');
+const { Role, createDefaultRoles } = require('../models/role.model');
+const User = require('../models/user.model');
+const UserCredential = require('../models/userCredential.model');
 
 let rolesChecked = false;
 

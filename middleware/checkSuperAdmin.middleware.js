@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/user.model');
 
 const checkSuperAdminRole = async (req, res, next) => {
     try {

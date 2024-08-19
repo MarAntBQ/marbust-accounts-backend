@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const sequelize = require('./util/database');
 const config = require('./config');
-const authMiddleware = require('./middleware/authMiddleware');
+const authMiddleware = require('./middleware/auth.middleware');
 
 // Importar rutas de usuarios
-const userRoutes = require('./routes/user');
-const superAdminRoutes = require('./routes/superAdmin');
+const userRoutes = require('./routes/user.routes');
+const superAdminRoutes = require('./routes/superAdmin.routes');
 
 const app = express();
 
