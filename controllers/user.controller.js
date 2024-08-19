@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const sendEmail = require('../services/sendEmail.service');
 
 const Role = require('../models/role.model');
 const USER_STATUS = require('../enums/userStatus.enum');
@@ -36,6 +37,10 @@ exports.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 12);
         await UserCredential.create({ userId: user.id, password: hashedPassword });
 
+        // Send OTP to user
+        const emailSubject = 'OTP Verification';
+        const emailBody = `Your OTP code is: <strong>${otpCode}</strong>`;
+        await sendEmail(email, emailSubject, emailBody);
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -52,12 +57,21 @@ exports.verifyOtp = async (req, res) => {
             return res.status(404).json({ message: 'User not found.' });
         }
 
+        // If account is suspended, return error not able to verify OTP or generate new OTP
+        if (user.statusId === USER_STATUS.SUSPENDED) {
+            return res.status(403).json({ message: 'User account is suspended. Please contact admin.' });
+        }
+
         // Check if OTP tries exceed the limit
         if (user.otpTries >= 3) {
             const newOtpCode = generateOtpCode();
             user.otpCode = newOtpCode;
             user.otpTries = 0;
             await user.save();
+            // Send OTP to user
+            const emailSubject = 'OTP Verification';
+            const emailBody = `Your OTP code is: <strong>${newOtpCode}</strong>`;
+            await sendEmail(email, emailSubject, emailBody);
             return res.status(400).json({ message: 'OTP expired. A new OTP has been sent.' });
         }
 
@@ -65,6 +79,10 @@ exports.verifyOtp = async (req, res) => {
         if (user.otpCode !== otpCode) {
             user.otpTries += 1;
             await user.save();
+            // Send OTP to user
+            const emailSubject = 'OTP Verification';
+            const emailBody = `Your OTP code is: <strong>${user.otpCode}</strong>`;
+            await sendEmail(email, emailSubject, emailBody);
             return res.status(400).json({ message: 'Invalid OTP.' });
         }
 
@@ -123,6 +141,10 @@ exports.login = async (req, res) => {
 
         // Generate token
         const token = jwt.sign({ userId: user.id, roleId: user.roleId },  config.jwtSecret, { expiresIn: '1h' });
+
+        const emailSubject = 'Login Notification';
+        const emailBody = `Your account was logged in at <strong>${new Date().toLocaleString()}</strong> from IP address <strong>${req.ip}</strong>`;
+        await sendEmail(email, emailSubject, emailBody);
 
         res.status(200).json({ token });
     } catch (error) {
