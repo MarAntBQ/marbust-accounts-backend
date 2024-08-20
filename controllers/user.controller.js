@@ -13,6 +13,10 @@ const generateOtpCode = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
 };
 
+const generateTemporaryPassword = () => {
+    return Math.random().toString(36).slice(-8);
+};
+
 exports.register = async (req, res) => {
     try {
         const { firstName, lastName, email, phone, password } = req.body;
@@ -63,7 +67,7 @@ exports.verifyOtp = async (req, res) => {
         }
 
         // Check if OTP tries exceed the limit
-        if (user.otpTries >= 3) {
+        if (user.otpTries >= 3 || !user.otpCode) {
             const newOtpCode = generateOtpCode();
             user.otpCode = newOtpCode;
             user.otpTries = 0;
@@ -152,6 +156,65 @@ exports.login = async (req, res) => {
     }
 };
 
+// Request Recover password
+exports.requestPasswordReset = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        // Find user by email
+        const user = await User.findOne({ where: { email } });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+
+        // Generate temporary password
+        const temporaryPassword = generateTemporaryPassword();
+
+        // Encrypt temporary password
+        const hashedPassword = await bcrypt.hash(temporaryPassword, 12);
+
+        // Update user password
+        await UserCredential.update({ password: hashedPassword }, { where: { userId: user.id } });
+
+        // Send temporary password to user
+        const emailSubject = 'Password Reset';
+        const emailBody = `Your temporary password is: <strong>${temporaryPassword}</strong>`;
+        await sendEmail(user.email, emailSubject, emailBody);
+
+        res.status(200).json({ message: 'Temporary password sent to your email.' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error processing request' });
+    }
+};
+
+exports.changePassword = async (req, res) => {
+    try {
+        const { newPassword } = req.body;
+        const userId = req.userId;
+
+        // Encrypt new password
+        const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+
+        // Update user password
+        await UserCredential.update({ password: hashedNewPassword }, { where: { userId } });
+
+        // Get User email
+        const userEmail = await User.findOne({ where: { id: userId }, attributes: ['email'] });
+
+        // Send temporary password to user
+        const emailSubject = 'Password Changed';
+        const emailBody = `Your password has been changed, your new password is: <strong>${newPassword}</strong>`;
+        await sendEmail(userEmail.email, emailSubject, emailBody);
+
+        res.status(200).json({
+            newPassword: newPassword,
+            message: 'Password changed successfully.'
+        });
+    } catch (error) {
+        res.status(500).json({ error: 'Error processing request' });
+    }
+};
+
 exports.getProfile = async (req, res, next) => {
     try {
         const user = await User.findByPk(req.userId, {
@@ -179,3 +242,4 @@ exports.getProfile = async (req, res, next) => {
         res.status(500).json({ message: 'Fetching profile failed.' });
     }
 };
+
