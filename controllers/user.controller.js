@@ -199,12 +199,12 @@ exports.changePassword = async (req, res) => {
         await UserCredential.update({ password: hashedNewPassword }, { where: { userId } });
 
         // Get User email
-        const userEmail = await User.findOne({ where: { id: userId }, attributes: ['email'] });
+        const user = await User.findOne({ where: { id: userId }, attributes: ['email'] });
 
         // Send temporary password to user
         const emailSubject = 'Password Changed';
         const emailBody = `Your password has been changed, your new password is: <strong>${newPassword}</strong>`;
-        await sendEmail(userEmail.email, emailSubject, emailBody);
+        await sendEmail(user.email, emailSubject, emailBody);
 
         res.status(200).json({
             newPassword: newPassword,
