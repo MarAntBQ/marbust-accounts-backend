@@ -12,7 +12,7 @@ const UserCredential = sequelize.define('UserCredential', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'Users', // Referencia al modelo Users
+      model: 'Users',
       key: 'id'
     }
   },

@@ -8,6 +8,7 @@ const authMiddleware = require('./middleware/auth.middleware');
 const defaultRoutes = require('./routes/default.routes');
 const userRoutes = require('./routes/user.routes');
 const systemRoutes = require('./routes/system.routes');
+const mbrelaxRoutes = require('./routes/mbrelax/healthApp.routes');
 
 const app = express();
 

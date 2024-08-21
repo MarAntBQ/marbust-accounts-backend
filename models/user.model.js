@@ -31,7 +31,7 @@ const User = sequelize.define('User', {
     type: DataTypes.INTEGER,
     defaultValue: USER_ROLE.USER,
     references: {
-        model: 'Roles', // Referencia al modelo Roles
+        model: 'Roles',
         key: 'id'
     }
   },
@@ -59,6 +59,6 @@ const User = sequelize.define('User', {
 });
 
 User.belongsTo(Role, { foreignKey: 'roleId' });
-User.belongsTo(UserStatus, { foreignKey: 'roleId' });
+User.belongsTo(UserStatus, { foreignKey: 'statusId' });
 
 module.exports = User;
