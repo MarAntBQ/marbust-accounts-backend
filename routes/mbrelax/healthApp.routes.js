@@ -3,6 +3,7 @@ const healthAppController = require('../../controllers/mbrelax/healthApp.control
 const router = express.Router();
 
 
-
+router.get('/questions/:gender', healthAppController.getQuestionsByGender);
+router.get('/systems', healthAppController.getSystems);
 
 module.exports = router;

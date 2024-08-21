@@ -19,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', defaultRoutes);
 app.use('/api', userRoutes);
 app.use('/api/system', authMiddleware, systemRoutes);
+app.use('/api/mbrelax', mbrelaxRoutes);
 
 // Sync Database and start server
 sequelize.sync({ alter: true })
