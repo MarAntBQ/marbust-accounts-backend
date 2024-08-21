@@ -20,25 +20,14 @@ exports.getQuestionsByGender = async (req, res) => {
             where: {
                 genreAppliedId: genreApplied
             },
-            attributes: ['id', 'name', 'affectsDigestive', 'affectsIntestinal', 'affectsCirculatory', 'affectsNervous', 'affectsImmunological', 'affectsRespiratory', 'affectsUrinary', 'affectsGlandular', 'affectsStructural']
+            attributes: ['id', 'name']
         });
 
         const formattedQuestions = questions.map(question => {
-            const systems = [];
-            if (question.affectsDigestive) systems.push('Digestive');
-            if (question.affectsIntestinal) systems.push('Intestinal');
-            if (question.affectsCirculatory) systems.push('Circulatory');
-            if (question.affectsNervous) systems.push('Nervous');
-            if (question.affectsImmunological) systems.push('Immunological');
-            if (question.affectsRespiratory) systems.push('Respiratory');
-            if (question.affectsUrinary) systems.push('Urinary');
-            if (question.affectsGlandular) systems.push('Glandular');
-            if (question.affectsStructural) systems.push('Structural');
 
             return {
                 id: question.id,
                 name: question.name,
-                systems: systems
             };
         });
 
