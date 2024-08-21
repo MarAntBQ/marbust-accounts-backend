@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const sequelize = require('./util/database.util');
 const config = require('./config');
@@ -11,7 +12,8 @@ const systemRoutes = require('./routes/system.routes');
 const mbrelaxRoutes = require('./routes/mbrelax/healthApp.routes');
 
 const app = express();
-
+// Setup Cors
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 

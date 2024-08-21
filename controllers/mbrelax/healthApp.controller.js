@@ -59,12 +59,11 @@ exports.getSystems = async (req, res, next) => {
     }
 };
 
-/*
 exports.calculateHealthStatus = async (req, res) => {
     try {
         const { answers } = req.body; // answers is an array of question IDs that the client answered "yes" to
 
-        const questions = await Question.findAll({
+        const questions = await MBRelaxHealthQuestion.findAll({
             where: {
                 id: answers
             }
@@ -94,20 +93,20 @@ exports.calculateHealthStatus = async (req, res) => {
             if (question.affectsStructural) healthScores.structural++;
         });
 
-        const healthSystems = await HealthSystem.findAll();
+        const healthSystems = await MBRelaxHealthSystem.findAll();
 
         const healthStatus = {};
 
         healthSystems.forEach(system => {
-            const score = healthScores[system.systemName.toLowerCase()];
+            const score = healthScores[system.name.toLowerCase()];
             if (score <= system.veryGoodHealthMax) {
-                healthStatus[system.systemName] = 'MUY BUENA SALUD';
+                healthStatus[system.name] = 'MUY BUENA SALUD';
             } else if (score <= system.goodHealthMax) {
-                healthStatus[system.systemName] = 'BUENA SALUD';
+                healthStatus[system.name] = 'BUENA SALUD';
             } else if (score <= system.regularHealthMax) {
-                healthStatus[system.systemName] = 'SALUD REGULAR';
+                healthStatus[system.name] = 'SALUD REGULAR';
             } else {
-                healthStatus[system.systemName] = 'MALA SALUD';
+                healthStatus[system.name] = 'MALA SALUD';
             }
         });
 
@@ -115,4 +114,4 @@ exports.calculateHealthStatus = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-};*/
+};
