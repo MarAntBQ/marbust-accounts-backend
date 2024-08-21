@@ -22,7 +22,7 @@ const sendEmail = async (emailTo, emailSubject, emailBody) => {
                 <hr />
                 ${emailBody}
                 <hr />
-                <p style='text-align: center;'><strong>Marbust Accounts&reg;</strong></p>
+                <p style='text-align: center;'><strong>Marbust Accounts&reg;</strong> System </br>&copy; ${new Date().getFullYear()} <a href="https://marbust.com" style="font-weight: bold;">Marbust Technology Company</a> - All Rights Reserved</p>
             `
         };
         const info = await transporter.sendMail(mailOptions);
