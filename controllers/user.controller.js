@@ -96,6 +96,10 @@ exports.verifyOtp = async (req, res) => {
         user.otpTries = 0;
         await user.save();
 
+        const emailSubject = 'Account Activated';
+        const emailBody = `Congratulations your account has been activated`;
+        await sendEmail(email, emailSubject, emailBody);
+
         res.status(200).json({ message: 'User activated successfully.' });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -242,4 +246,3 @@ exports.getProfile = async (req, res, next) => {
         res.status(500).json({ message: 'Fetching profile failed.' });
     }
 };
-

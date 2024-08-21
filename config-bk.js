@@ -1,5 +1,9 @@
 module.exports = {
     jwtSecret: 'jwtSecretKey',
+    whatsApp: {
+        url: `whatsAppUrl`,
+        keySecret: 'whatsAppSecretKey',
+    },
     db: {
         host: 'localhost',
         user: 'DATABASE_USER',
@@ -15,5 +19,5 @@ module.exports = {
         secure: true,
         user: 'MAILTRAP_USER',
         password: 'MAILTRAP_PASSWORD'
-    }
+    },
 };
