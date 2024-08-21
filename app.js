@@ -7,7 +7,7 @@ const authMiddleware = require('./middleware/auth.middleware');
 // Import Routes
 const defaultRoutes = require('./routes/default.routes');
 const userRoutes = require('./routes/user.routes');
-const superAdminRoutes = require('./routes/superAdmin.routes');
+const systemRoutes = require('./routes/system.routes');
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // App Routes
 app.use('/api', defaultRoutes);
 app.use('/api', userRoutes);
-app.use('/api/superadmin', authMiddleware, superAdminRoutes);
+app.use('/api/system', authMiddleware, systemRoutes);
 
 // Sync Database and start server
 sequelize.sync({ alter: true })
