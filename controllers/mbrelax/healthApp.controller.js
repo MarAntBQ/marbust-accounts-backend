@@ -64,7 +64,7 @@ exports.calculateHealthStatus = async (req, res) => {
             intestinal: 0,
             circulatory: 0,
             nervous: 0,
-            immunological: 0,
+            immune: 0,
             respiratory: 0,
             urinary: 0,
             glandular: 0,
@@ -76,7 +76,7 @@ exports.calculateHealthStatus = async (req, res) => {
             if (question.affectsIntestinal) healthScores.intestinal++;
             if (question.affectsCirculatory) healthScores.circulatory++;
             if (question.affectsNervous) healthScores.nervous++;
-            if (question.affectsImmunological) healthScores.immunological++;
+            if (question.affectsImmunological) healthScores.immune++;
             if (question.affectsRespiratory) healthScores.respiratory++;
             if (question.affectsUrinary) healthScores.urinary++;
             if (question.affectsGlandular) healthScores.glandular++;
@@ -90,19 +90,21 @@ exports.calculateHealthStatus = async (req, res) => {
         healthSystems.forEach(system => {
             const score = healthScores[system.name.toLowerCase()];
             if (score <= system.veryGoodHealthMax) {
-                healthStatus[system.name] = 'MUY BUENA SALUD';
+                healthStatus[system.name] = { score, status: 'MUY BUENA SALUD' };
             } else if (score <= system.goodHealthMax) {
-                healthStatus[system.name] = 'BUENA SALUD';
+                healthStatus[system.name] = { score, status: 'BUENA SALUD' };
             } else if (score <= system.regularHealthMax) {
-                healthStatus[system.name] = 'SALUD REGULAR';
+                healthStatus[system.name] = { score, status: 'SALUD REGULAR' };
             } else {
-                healthStatus[system.name] = 'MALA SALUD';
+                healthStatus[system.name] = { score, status: 'MALA SALUD' };
             }
         });
 
          // Step 7: Construct email body for "pedidos@mbrelax.xyz"
-         const affirmativeQuestions = questions.map(q => `<li>${q.name}</li>`).join('');
-         const healthResults = Object.entries(healthStatus).map(([system, status]) => `${system}: ${status}`).join('<br>');
+        const affirmativeQuestions = questions.map(q => `<li>${q.name}</li>`).join('');
+        const healthResults = Object.entries(healthStatus)
+            .map(([system, { score, status }]) => `${system}: [${score}] - ${status}`)
+            .join('<br>');
          const emailSubject1 = 'Analisis de Estilo de Vida Recibido';
          const emailBody1 = `
              <p><strong>Nombre:</strong> ${name}</p>
@@ -132,7 +134,7 @@ exports.calculateHealthStatus = async (req, res) => {
         };
 
         const translatedHealthResults = Object.entries(healthStatus)
-            .map(([system, status]) => `${healthSystemNamesInSpanish[system]}: ${status}`)
+            .map(([system, { status }]) => `${healthSystemNamesInSpanish[system]}: ${status}`)
             .join('<br>');
         const emailSubject2 = 'Resultados Preliminares de su Evaluación de Salud';
         const emailBody2 = `
@@ -145,7 +147,12 @@ exports.calculateHealthStatus = async (req, res) => {
             <p>Para mayor información contáctanos en <a href="https://mbrelax.xyz/contact/">MBRelax®</a></p>
         `;
         await sendEmail(email, emailSubject2, emailBody2);
-        res.status(200).json({ healthStatus });
+
+        const frontendHealthStatus = Object.fromEntries(
+            Object.entries(healthStatus).map(([system, { status }]) => [system, status])
+        );
+
+        res.status(200).json({ frontendHealthStatus });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
