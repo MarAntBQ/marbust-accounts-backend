@@ -152,7 +152,7 @@ exports.calculateHealthStatus = async (req, res) => {
             Object.entries(healthStatus).map(([system, { status }]) => [system, status])
         );
 
-        res.status(200).json({ frontendHealthStatus });
+        res.status(200).json({ healthStatus: frontendHealthStatus });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
