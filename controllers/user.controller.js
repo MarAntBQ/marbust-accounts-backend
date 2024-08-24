@@ -42,8 +42,12 @@ exports.register = async (req, res) => {
         await UserCredential.create({ userId: user.id, password: hashedPassword });
 
         // Send OTP to user
-        const emailSubject = 'OTP Verification';
-        const emailBody = `Your OTP code is: <strong>${otpCode}</strong>`;
+        const emailSubject = 'Account Registration';
+        const emailBody = `¡Welcome to <strong>Marbust Accounts</strong>! Your account has been created successfully.
+        Please verify your email address by entering the following OTP code: <strong>${otpCode}</strong> in the verification page.
+        <br>
+        Verification link: <a href="${config.urls.frontend}/confirm-otp">Verify OTP</a>
+        `;
         await sendEmail(email, emailSubject, emailBody);
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {

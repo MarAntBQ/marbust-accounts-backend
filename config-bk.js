@@ -20,4 +20,9 @@ module.exports = {
         user: 'MAILTRAP_USER',
         password: 'MAILTRAP_PASSWORD'
     },
+    urls: {
+        frontendBackup: '',
+        frontend: '',
+        backend: ''
+    }
 };
