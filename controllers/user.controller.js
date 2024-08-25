@@ -182,7 +182,7 @@ exports.requestPasswordReset = async (req, res) => {
         const hashedPassword = await bcrypt.hash(temporaryPassword, 12);
 
         // Update user password
-        await UserCredential.update({ password: hashedPassword }, { where: { userId: user.id } });
+        await UserCredential.update({ tempPassword: hashedPassword }, { where: { userId: user.id } });
 
         // Send temporary password to user
         const emailSubject = 'Password Reset';
