@@ -122,7 +122,26 @@ exports.login = async (req, res) => {
 
         // Check if password is correct
         const userCredential = await UserCredential.findOne({ where: { userId: user.id } });
-        const isPasswordValid = await bcrypt.compare(password, userCredential.password);
+        let isPasswordValid = false;
+        let resetLogged = false;
+
+        // Check if tempPassword exists
+        if (userCredential.tempPassword) {
+            isPasswordValid = await bcrypt.compare(password, userCredential.tempPassword);
+            if (isPasswordValid) {
+                userCredential.tempPassword = null;
+                const hashedPassword = await bcrypt.hash(password, 12);
+                userCredential.password = hashedPassword;
+                resetLogged = true;
+            }
+        }
+
+        // If tempPassword is not valid or doesn't exist, check the normal password
+        if (!isPasswordValid) {
+            isPasswordValid = await bcrypt.compare(password, userCredential.password);
+            userCredential.tempPassword = null;
+        }
+
         if (!isPasswordValid) {
             return res.status(401).json({ message: 'Wrong password.' });
         }
@@ -158,6 +177,8 @@ exports.login = async (req, res) => {
         const emailBody = `Your account was logged in at <strong>${new Date().toLocaleString()}</strong> from IP address <strong>${req.ip}</strong>`;
         await sendEmail(email, emailSubject, emailBody);
 
+        await userCredential.save();
+
         res.status(200).json({ token });
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -186,7 +207,9 @@ exports.requestPasswordReset = async (req, res) => {
 
         // Send temporary password to user
         const emailSubject = 'Password Reset';
-        const emailBody = `Your temporary password is: <strong>${temporaryPassword}</strong>`;
+        const emailBody = `Your temporary password is: <strong>${temporaryPassword}</strong>
+        <br>If you didn't request this, please ignore this email. Your password will be protected and temporal password deleted after you login with your current credentials.
+        <br>Please remember that your password will be changed if you login successfully with <strong>this temporary password</strong>, so we recommend you to change your password.`;
         await sendEmail(user.email, emailSubject, emailBody);
 
         res.status(200).json({ message: 'Temporary password sent to your email.' });
