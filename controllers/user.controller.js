@@ -235,7 +235,7 @@ exports.getProfile = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ message: 'User not found.' });
         }
-        const userReponse = {
+        const data = {
             id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
@@ -244,7 +244,7 @@ exports.getProfile = async (req, res, next) => {
             role: user.Role.name
         };
 
-        res.status(200).json({ userReponse });
+        res.status(200).json(data);
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Fetching profile failed.' });
