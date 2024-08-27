@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
         // Verify if user already exists
         const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
-            return res.status(400).json({ error: 'User already exists' });
+            return res.status(400).json({ error: 'Usuario ya registrado' });
         }
 
         // Create user
@@ -42,14 +42,15 @@ exports.register = async (req, res) => {
         await UserCredential.create({ userId: user.id, password: hashedPassword });
 
         // Send OTP to user
-        const emailSubject = 'Account Registration';
-        const emailBody = `¡Welcome to <strong>Marbust Accounts</strong>! Your account has been created successfully.
-        Please verify your email address by entering the following OTP code: <strong>${otpCode}</strong> in the verification page.
+        const emailSubject = 'Creación de cuenta';
+        const emailBody = `¡Bienvenido a <strong>Marbust Accounts</strong>! Tu cuenta ha sido creada exitosamente.
         <br>
-        Verification link: <a href="${config.urls.frontend}/confirm-otp">Verify OTP</a>
+        Por favor verifica tu dirección de correo electrónico ingresando el siguiente código OTP: <strong>${otpCode}</strong> en la página de verificación.        Please verify your email address by entering the following OTP code: <strong>${otpCode}</strong> in the verification page.
+        <br>
+        Link de verificación: <a href="${config.urls.frontend}/confirm-otp">Verificar OTP</a>
         `;
         await sendEmail(email, emailSubject, emailBody);
-        res.status(201).json({ message: 'User registered successfully' });
+        res.status(201).json({ message: 'Usuario registrado con éxito' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -62,12 +63,12 @@ exports.verifyOtp = async (req, res) => {
         // Check if user exists
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(404).json({ message: 'Usuario no existe.' });
         }
 
         // If account is suspended, return error not able to verify OTP or generate new OTP
         if (user.statusId === USER_STATUS.SUSPENDED) {
-            return res.status(403).json({ message: 'User account is suspended. Please contact admin.' });
+            return res.status(403).json({ message: 'El usuario se encuentra suspendido.' });
         }
 
         // Check if OTP tries exceed the limit
@@ -77,10 +78,10 @@ exports.verifyOtp = async (req, res) => {
             user.otpTries = 0;
             await user.save();
             // Send OTP to user
-            const emailSubject = 'OTP Verification';
-            const emailBody = `Your OTP code is: <strong>${newOtpCode}</strong>`;
+            const emailSubject = 'Verificación OTP';
+            const emailBody = `Tu código OTP es: <strong>${newOtpCode}</strong>`;
             await sendEmail(email, emailSubject, emailBody);
-            return res.status(400).json({ message: 'OTP expired. A new OTP has been sent.' });
+            return res.status(400).json({ message: 'Código OTP ha expirado. Un nuevo código OTP ha sido enviado.' });
         }
 
         // Check if OTP is correct
@@ -88,10 +89,10 @@ exports.verifyOtp = async (req, res) => {
             user.otpTries += 1;
             await user.save();
             // Send OTP to user
-            const emailSubject = 'OTP Verification';
-            const emailBody = `Your OTP code is: <strong>${user.otpCode}</strong>`;
+            const emailSubject = 'Verificación OTP';
+            const emailBody = `Tu código OTP es: <strong>${newOtpCode}</strong>`;
             await sendEmail(email, emailSubject, emailBody);
-            return res.status(400).json({ message: 'Invalid OTP.' });
+            return res.status(400).json({ message: 'Código OTP invalido.' });
         }
 
         // Activate user
@@ -100,11 +101,11 @@ exports.verifyOtp = async (req, res) => {
         user.otpTries = 0;
         await user.save();
 
-        const emailSubject = 'Account Activated';
-        const emailBody = `Congratulations your account has been activated`;
+        const emailSubject = 'Cuenta Activada';
+        const emailBody = `Felicitaciones, tu cuenta ha sido activada.`;
         await sendEmail(email, emailSubject, emailBody);
 
-        res.status(200).json({ message: 'User activated successfully.' });
+        res.status(200).json({ message: 'Activación de usuario con éxito.' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -117,7 +118,7 @@ exports.login = async (req, res) => {
         // Check if user exists
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(401).json({ message: 'User not found.' });
+            return res.status(401).json({ message: 'Usuario no existe.' });
         }
 
         // Check if password is correct
@@ -143,38 +144,38 @@ exports.login = async (req, res) => {
         }
 
         if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Wrong password.' });
+            return res.status(401).json({ message: 'Contraseña Incorrecta.' });
         }
 
         if (user.statusId !== USER_STATUS.ACTIVE) {
             let userStatus = '';
             switch (user.statusId) {
                 case USER_STATUS.ACTIVE:
-                    userStatus = 'active';
+                    userStatus = 'activa';
                     break;
                 case USER_STATUS.INACTIVE:
-                    userStatus = 'inactive';
+                    userStatus = 'inactiva, verifica tu correo electrónico para activar tu cuenta.';
                     break;
                 case USER_STATUS.SUSPENDED:
-                    userStatus = 'suspended';
+                    userStatus = 'suspendidad';
                     break;
                 default:
-                    userStatus = 'active';
+                    userStatus = 'activa';
             }
             return res.status(403).json({
                 status: {
                     id: user.statusId,
                     name: userStatus
                 },
-                message: `User account is ${userStatus}. Please contact admin`
+                message: `Tu cuenta de usuario está ${userStatus}.`
             });
         }
 
         // Generate token
         const token = jwt.sign({ userId: user.id, roleId: user.roleId },  config.jwtSecret, { expiresIn: '1h' });
 
-        const emailSubject = 'Login Notification';
-        const emailBody = `Your account was logged in at <strong>${new Date().toLocaleString()}</strong> from IP address <strong>${req.ip}</strong>`;
+        const emailSubject = 'Notificación de inicio de sesión';
+        const emailBody = `Tu cuenta ha iniciado sesión el <strong>${new Date().toLocaleString()}</strong> desde la dirección IP <strong>${req.ip}</strong>`;
         await sendEmail(email, emailSubject, emailBody);
 
         await userCredential.save();
@@ -193,7 +194,7 @@ exports.requestPasswordReset = async (req, res) => {
         // Find user by email
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(404).json({ message: 'Usuario no éxiste' });
         }
 
         // Generate temporary password
@@ -206,15 +207,15 @@ exports.requestPasswordReset = async (req, res) => {
         await UserCredential.update({ tempPassword: hashedPassword }, { where: { userId: user.id } });
 
         // Send temporary password to user
-        const emailSubject = 'Password Reset';
-        const emailBody = `Your temporary password is: <strong>${temporaryPassword}</strong>
-        <br>If you didn't request this, please ignore this email. Your password will be protected and temporal password deleted after you login with your current credentials.
-        <br>Please remember that your password will be changed if you login successfully with <strong>this temporary password</strong>, so we recommend you to change your password.`;
+        const emailSubject = 'Recuperación de contraseña';
+        const emailBody = `Tu contraseña temporal es: <strong>${temporaryPassword}</strong>
+        <br>Si no solicitaste esto, ignora este correo electrónico. Tu contraseña será protegida y la contraseña temporal eliminada después de iniciar sesión con tus credenciales actuales.
+        <br>Recuerda que tu contraseña será cambiada si inicias sesión con <strong>esta contraseña temporal</strong>, por lo que te recomendamos que cambies tu contraseña`;
         await sendEmail(user.email, emailSubject, emailBody);
 
-        res.status(200).json({ message: 'Temporary password sent to your email.' });
+        res.status(200).json({ message: 'Contraseña Temporal ha sido enviada a su correo' });
     } catch (error) {
-        res.status(500).json({ error: 'Error processing request' });
+        res.status(500).json({ error: 'Error procesando la solicitud' });
     }
 };
 
@@ -233,16 +234,16 @@ exports.changePassword = async (req, res) => {
         const user = await User.findOne({ where: { id: userId }, attributes: ['email'] });
 
         // Send temporary password to user
-        const emailSubject = 'Password Changed';
-        const emailBody = `Your password has been changed, your new password is: <strong>${newPassword}</strong>`;
+        const emailSubject = 'Cambio de contraseña';
+        const emailBody = `Tu contraseña ha sido cambiada, tu nueva contraseña es: <strong>${newPassword}</strong>`;
         await sendEmail(user.email, emailSubject, emailBody);
 
         res.status(200).json({
             newPassword: newPassword,
-            message: 'Password changed successfully.'
+            message: 'Cambio de contraseña con éxito.'
         });
     } catch (error) {
-        res.status(500).json({ error: 'Error processing request' });
+        res.status(500).json({ error: 'Error procesando la solicitud' });
     }
 };
 
@@ -256,7 +257,7 @@ exports.getProfile = async (req, res, next) => {
             }
         });
         if (!user) {
-            return res.status(404).json({ message: 'User not found.' });
+            return res.status(404).json({ message: 'Usuario no encontrado.' });
         }
         const data = {
             id: user.id,
@@ -270,6 +271,6 @@ exports.getProfile = async (req, res, next) => {
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ message: 'Fetching profile failed.' });
+        res.status(500).json({ error: 'Error procesando la solicitud' });
     }
 };
