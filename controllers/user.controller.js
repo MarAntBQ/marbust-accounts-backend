@@ -42,17 +42,17 @@ exports.register = async (req, res) => {
         await UserCredential.create({ userId: user.id, password: hashedPassword });
 
         // Send OTP to user
-        const emailSubject = 'Creación de cuenta';
+        const emailSubject = `Creación de cuenta - Verificación OTP [${otpCode}]`;
         const emailBody = `¡Bienvenido a <strong>Marbust Accounts</strong>! Tu cuenta ha sido creada exitosamente.
         <br>
-        Por favor verifica tu dirección de correo electrónico ingresando el siguiente código OTP: <strong>${otpCode}</strong> en la página de verificación.        Please verify your email address by entering the following OTP code: <strong>${otpCode}</strong> in the verification page.
+        Por favor verifica tu dirección de correo electrónico ingresando el siguiente código OTP: <strong>${otpCode}</strong> en la página de verificación.
         <br>
         Link de verificación: <a href="${config.urls.frontend}/confirm-otp">Verificar OTP</a>
         `;
         await sendEmail(email, emailSubject, emailBody);
         res.status(201).json({ message: 'Usuario registrado con éxito' });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Error procesando la solicitud' });
     }
 };
 
@@ -107,7 +107,7 @@ exports.verifyOtp = async (req, res) => {
 
         res.status(200).json({ message: 'Activación de usuario con éxito.' });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Error procesando la solicitud' });
     }
 };
 
@@ -182,7 +182,7 @@ exports.login = async (req, res) => {
 
         res.status(200).json({ token });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: 'Error procesando la solicitud' });
     }
 };
 
