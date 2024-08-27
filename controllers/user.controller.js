@@ -92,7 +92,7 @@ exports.verifyOtp = async (req, res) => {
             const emailSubject = 'Verificación OTP';
             const emailBody = `Tu código OTP es: <strong>${user.otpCode}</strong>. Recuerda que tienes <strong>${3 - user.otpTries}</strong> intento/s más para verificar tu cuenta.`;
             await sendEmail(email, emailSubject, emailBody);
-            return res.status(400).json({ error: 'Código OTP invalido.' });
+            return res.status(400).json({ error: `Código OTP invalido. Recuerda que tienes ${3 - user.otpTries} intento/s más para verificar tu cuenta.` });
         }
 
         // Activate user
@@ -154,13 +154,23 @@ exports.login = async (req, res) => {
                     userStatus = 'activa';
                     break;
                 case USER_STATUS.INACTIVE:
-                    userStatus = 'inactiva, verifica tu correo electrónico para activar tu cuenta.';
+                    userStatus = 'inactiva, verifica tu correo electrónico para activar tu cuenta';
                     break;
                 case USER_STATUS.SUSPENDED:
                     userStatus = 'suspendidad';
                     break;
                 default:
                     userStatus = 'activa';
+            }
+            if (user.statusId === USER_STATUS.INACTIVE) {
+                const emailSubject = `Necesitas verificar tu correo electrónico`;
+                const emailBody = `¡Bienvenido a <strong>Marbust Accounts</strong>! Tu cuenta ha sido creada exitosamente.
+                <br>
+                Por favor verifica tu dirección de correo electrónico ingresando el siguiente código OTP: <strong>${user.otpCode}</strong> en la página de verificación.
+                <br>
+                Link de verificación: <a href="${config.urls.frontend}/confirm-otp">Verificar OTP</a>
+                `;
+                await sendEmail(email, emailSubject, emailBody);
             }
             return res.status(403).json({
                 status: {
@@ -180,7 +190,7 @@ exports.login = async (req, res) => {
 
         await userCredential.save();
 
-        res.status(200).json({ userName: user.name, token: token });
+        res.status(200).json({ userName: user.name, message: "Login Succesful", token: token });
     } catch (error) {
         res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
