@@ -52,7 +52,7 @@ exports.register = async (req, res) => {
         await sendEmail(email, emailSubject, emailBody);
         res.status(201).json({ message: 'Usuario registrado con éxito' });
     } catch (error) {
-        res.status(500).json({ error: 'Error procesando la solicitud' });
+        res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
 };
 
@@ -107,7 +107,7 @@ exports.verifyOtp = async (req, res) => {
 
         res.status(200).json({ message: 'Activación de usuario con éxito.' });
     } catch (error) {
-        res.status(500).json({ error: 'Error procesando la solicitud' });
+        res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
 };
 
@@ -182,7 +182,7 @@ exports.login = async (req, res) => {
 
         res.status(200).json({ token });
     } catch (error) {
-        res.status(500).json({ error: 'Error procesando la solicitud' });
+        res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
 };
 
@@ -215,7 +215,7 @@ exports.requestPasswordReset = async (req, res) => {
 
         res.status(200).json({ message: 'Contraseña Temporal ha sido enviada a su correo' });
     } catch (error) {
-        res.status(500).json({ error: 'Error procesando la solicitud' });
+        res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
 };
 
@@ -243,7 +243,7 @@ exports.changePassword = async (req, res) => {
             message: 'Cambio de contraseña con éxito.'
         });
     } catch (error) {
-        res.status(500).json({ error: 'Error procesando la solicitud' });
+        res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
 };
 
@@ -271,6 +271,6 @@ exports.getProfile = async (req, res, next) => {
         res.status(200).json(data);
     } catch (err) {
         console.log(err);
-        res.status(500).json({ error: 'Error procesando la solicitud' });
+        res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
 };
