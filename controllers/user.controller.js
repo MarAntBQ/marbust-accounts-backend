@@ -63,12 +63,12 @@ exports.verifyOtp = async (req, res) => {
         // Check if user exists
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no existe.' });
+            return res.status(404).json({ error: 'Usuario no existe.' });
         }
 
         // If account is suspended, return error not able to verify OTP or generate new OTP
         if (user.statusId === USER_STATUS.SUSPENDED) {
-            return res.status(403).json({ message: 'El usuario se encuentra suspendido.' });
+            return res.status(403).json({ error: 'El usuario se encuentra suspendido.' });
         }
 
         // Check if OTP tries exceed the limit
@@ -79,9 +79,9 @@ exports.verifyOtp = async (req, res) => {
             await user.save();
             // Send OTP to user
             const emailSubject = 'Verificación OTP';
-            const emailBody = `Tu código OTP es: <strong>${newOtpCode}</strong>`;
+            const emailBody = `Tu nuevo código OTP es: <strong>${newOtpCode}</strong>`;
             await sendEmail(email, emailSubject, emailBody);
-            return res.status(400).json({ message: 'Código OTP ha expirado. Un nuevo código OTP ha sido enviado.' });
+            return res.status(400).json({ error: 'Código OTP ha expirado. Un nuevo código OTP ha sido enviado.' });
         }
 
         // Check if OTP is correct
@@ -90,9 +90,9 @@ exports.verifyOtp = async (req, res) => {
             await user.save();
             // Send OTP to user
             const emailSubject = 'Verificación OTP';
-            const emailBody = `Tu código OTP es: <strong>${newOtpCode}</strong>`;
+            const emailBody = `Tu código OTP es: <strong>${user.otpCode}</strong>. Recuerda que tienes <strong>${3 - user.otpTries}</strong> intento/s más para verificar tu cuenta.`;
             await sendEmail(email, emailSubject, emailBody);
-            return res.status(400).json({ message: 'Código OTP invalido.' });
+            return res.status(400).json({ error: 'Código OTP invalido.' });
         }
 
         // Activate user
@@ -118,7 +118,7 @@ exports.login = async (req, res) => {
         // Check if user exists
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(401).json({ message: 'Usuario no existe.' });
+            return res.status(401).json({ error: 'Usuario no existe.' });
         }
 
         // Check if password is correct
@@ -144,7 +144,7 @@ exports.login = async (req, res) => {
         }
 
         if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Contraseña Incorrecta.' });
+            return res.status(401).json({ error: 'Contraseña Incorrecta.' });
         }
 
         if (user.statusId !== USER_STATUS.ACTIVE) {
@@ -167,7 +167,7 @@ exports.login = async (req, res) => {
                     id: user.statusId,
                     name: userStatus
                 },
-                message: `Tu cuenta de usuario está ${userStatus}.`
+                error: `Tu cuenta de usuario está ${userStatus}.`
             });
         }
 
@@ -180,7 +180,7 @@ exports.login = async (req, res) => {
 
         await userCredential.save();
 
-        res.status(200).json({ token });
+        res.status(200).json({ userName: user.name, token: token });
     } catch (error) {
         res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
@@ -194,7 +194,7 @@ exports.requestPasswordReset = async (req, res) => {
         // Find user by email
         const user = await User.findOne({ where: { email } });
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no éxiste' });
+            return res.status(404).json({ error: 'Usuario no éxiste' });
         }
 
         // Generate temporary password
@@ -257,7 +257,7 @@ exports.getProfile = async (req, res, next) => {
             }
         });
         if (!user) {
-            return res.status(404).json({ message: 'Usuario no encontrado.' });
+            return res.status(404).json({ error: 'Usuario no encontrado.' });
         }
         const data = {
             id: user.id,
