@@ -4,6 +4,8 @@
 Last Update:
 ---
 **News:**
+- All Logic for Users Account implemented such as: Registration, Login, Forget Password, Confirm OTP, View my Profile, Change Password.
+- MBRelax®: Logic for Analysis App.
 - Currently Working on Node.JS with Express.js as a REST API including JWT Validation
 --- 
 
