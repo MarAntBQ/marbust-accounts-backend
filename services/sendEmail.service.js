@@ -16,13 +16,13 @@ const sendEmail = async (emailTo, emailSubject, emailBody) => {
         const mailOptions = {
             from: config.nodemailer.user,
             to: emailTo,
-            subject: `${emailSubject} | Marbust Accounts System`,
+            subject: `${emailSubject} | ${config.appName} System`,
             html: `
                 <h1 style='text-align: center;'>${emailSubject}</h1>
                 <hr />
                 ${emailBody}
                 <hr />
-                <p style='text-align: center;'><strong>Marbust Accounts&reg;</strong> System </br>&copy; ${new Date().getFullYear()} <a href="https://marbust.com" style="font-weight: bold;">Marbust Technology Company</a> - All Rights Reserved</p>
+                <p style='text-align: center;'><strong>${config.appName}&reg;</strong> System </br>&copy; ${new Date().getFullYear()} <a href="https://marbust.com" style="font-weight: bold;">Marbust Technology Company</a> - All Rights Reserved</p>
             `
         };
         const info = await transporter.sendMail(mailOptions);

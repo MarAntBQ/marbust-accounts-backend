@@ -1,4 +1,6 @@
 module.exports = {
+    appName: 'Marbust Accounts',
+    appVersion: '2.5.0',
     jwtSecret: 'jwtSecretKey',
     whatsApp: {
         url: `whatsAppUrl`,
