@@ -78,7 +78,7 @@ exports.verifyOtp = async (req, res) => {
             user.otpTries = 0;
             await user.save();
             // Send OTP to user
-            const emailSubject = 'Verificación OTP';
+            const emailSubject = `Verificación OTP [${newOtpCode}]`;
             const emailBody = `Tu nuevo código OTP es: <strong>${newOtpCode}</strong>`;
             await sendEmail(email, emailSubject, emailBody);
             return res.status(400).json({ error: 'Código OTP ha expirado. Un nuevo código OTP ha sido enviado.' });
@@ -89,7 +89,7 @@ exports.verifyOtp = async (req, res) => {
             user.otpTries += 1;
             await user.save();
             // Send OTP to user
-            const emailSubject = 'Verificación OTP';
+            const emailSubject = `Verificación OTP [${user.otpCode}]`;
             const emailBody = `Tu código OTP es: <strong>${user.otpCode}</strong>. Recuerda que tienes <strong>${3 - user.otpTries}</strong> intento/s más para verificar tu cuenta.`;
             await sendEmail(email, emailSubject, emailBody);
             return res.status(400).json({ error: `Código OTP invalido. Recuerda que tienes ${3 - user.otpTries} intento/s más para verificar tu cuenta.` });
