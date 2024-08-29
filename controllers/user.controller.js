@@ -116,7 +116,14 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
 
         // Check if user exists
-        const user = await User.findOne({ where: { email } });
+        const user = await User.findOne({
+            where: { email },
+            include: {
+                model: Role,
+                attributes: ['name']
+            }
+        });
+
         if (!user) {
             return res.status(401).json({ error: 'Usuario no existe.' });
         }
@@ -190,8 +197,17 @@ exports.login = async (req, res) => {
 
         await userCredential.save();
 
+        const data = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            phone: user.phone,
+            role: user.Role.name
+        };
+
         res.status(200).json({
-            userName: user.name,
+            user: data,
             message: "¡Inicio de sesión exitoso!",
             token: token
         });
