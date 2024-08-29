@@ -304,3 +304,10 @@ exports.getProfile = async (req, res, next) => {
         res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
 };
+
+exports.jwtCheck = async (req, res, next) => {
+    return res.status(200).json({
+        verified: true,
+        message: 'Token válido'
+    });
+}
