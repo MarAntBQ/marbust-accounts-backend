@@ -190,7 +190,11 @@ exports.login = async (req, res) => {
 
         await userCredential.save();
 
-        res.status(200).json({ userName: user.name, message: "Login Succesful", token: token });
+        res.status(200).json({
+            userName: user.name,
+            message: "¡Inicio de sesión exitoso!",
+            token: token
+        });
     } catch (error) {
         res.status(500).json({ error: 'Error procesando la solicitud', serverReport: error });
     }
