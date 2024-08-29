@@ -203,7 +203,8 @@ exports.login = async (req, res) => {
             lastName: user.lastName,
             email: user.email,
             phone: user.phone,
-            role: user.Role.name
+            role: user.Role.name,
+            roleId: user.roleId
         };
 
         res.status(200).json({
@@ -295,7 +296,8 @@ exports.getProfile = async (req, res, next) => {
             lastName: user.lastName,
             email: user.email,
             phone: user.phone,
-            role: user.Role.name
+            role: user.Role.name,
+            roleId: user.roleId
         };
 
         res.status(200).json(data);
