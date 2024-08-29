@@ -10,6 +10,7 @@ const defaultRoutes = require('./routes/default.routes');
 const userRoutes = require('./routes/user.routes');
 const systemRoutes = require('./routes/system.routes');
 const mbrelaxRoutes = require('./routes/mbrelax/healthApp.routes');
+const systemUpdateRoutes = require('./routes/systemUpdate.routes');
 
 const app = express();
 // Setup Cors
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/api', defaultRoutes);
 app.use('/api', userRoutes);
 app.use('/api/system', authMiddleware, systemRoutes);
+app.use('/api/system-updates', authMiddleware, systemUpdateRoutes);
 app.use('/api/mbrelax', mbrelaxRoutes);
 
 // Sync Database and start server
