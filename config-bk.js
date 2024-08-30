@@ -23,8 +23,8 @@ module.exports = {
         password: 'MAILTRAP_PASSWORD'
     },
     urls: {
-        frontendBackup: '',
-        frontend: '',
-        backend: ''
+        frontendBackup: 'URL_LOCAL_REACT',
+        frontend: 'URL_REACT_PRODUCTION',
+        backend: 'URL_NODEJS_PRODUCTION'
     }
 };
