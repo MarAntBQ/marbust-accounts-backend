@@ -43,7 +43,7 @@ exports.register = async (req, res) => {
 
         // Send OTP to user
         const emailSubject = `Creación de cuenta - Verificación OTP [${otpCode}]`;
-        const emailBody = `¡Bienvenido a <strong>Marbust Accounts</strong>! Tu cuenta ha sido creada exitosamente.
+        const emailBody = `¡Bienvenido a <strong>${config.appName}</strong>! Tu cuenta ha sido creada exitosamente.
         <br>
         Por favor verifica tu dirección de correo electrónico ingresando el siguiente código OTP: <strong>${otpCode}</strong> en la página de verificación.
         <br>
@@ -171,7 +171,7 @@ exports.login = async (req, res) => {
             }
             if (user.statusId === USER_STATUS.INACTIVE) {
                 const emailSubject = `Necesitas verificar tu correo electrónico`;
-                const emailBody = `¡Bienvenido a <strong>Marbust Accounts</strong>! Tu cuenta ha sido creada exitosamente.
+                const emailBody = `¡Bienvenido a <strong>${config.appName}</strong>! Tu cuenta ha sido creada exitosamente.
                 <br>
                 Por favor verifica tu dirección de correo electrónico ingresando el siguiente código OTP: <strong>${user.otpCode}</strong> en la página de verificación.
                 <br>
