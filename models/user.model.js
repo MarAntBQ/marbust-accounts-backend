@@ -25,11 +25,12 @@ const User = sequelize.define('User', {
   },
   phone: {
     type: DataTypes.STRING,
-    allowNull: true
+    allowNull: false,
   },
   roleId: {
     type: DataTypes.INTEGER,
     defaultValue: USER_ROLE.USER,
+    allowNull: false,
     references: {
         model: 'Roles',
         key: 'id'
@@ -37,6 +38,7 @@ const User = sequelize.define('User', {
   },
   statusId: {
     type: DataTypes.INTEGER,
+    allowNull: false,
     defaultValue: USER_STATUS.INACTIVE,
     references: {
         model: 'UserStatus',
@@ -49,8 +51,8 @@ const User = sequelize.define('User', {
   },
   otpTries: {
     type: DataTypes.INTEGER,
-    allowNull: false,
     defaultValue: 0,
+    allowNull: true,
     validate: {
         min: 0,
         max: 3
