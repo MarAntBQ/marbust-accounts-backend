@@ -32,3 +32,15 @@ exports.createNew = async (req, res) => {
         res.status(500).json({ error: 'Internal server error', serverReport: error});
     }
 };
+
+exports.getAllCategories = async (req, res) => {
+    try {
+        const categories = await MarbustEducationCourseCategory.findAll({
+            attributes: ['id', 'name']
+        });
+        res.status(200).json(categories);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error', serverReport: error});
+    }
+};
