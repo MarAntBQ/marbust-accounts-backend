@@ -5,6 +5,8 @@ Last Update:
 ---
 **News:**
 - All Logic for Users Account implemented such as: Registration, Login, Forget Password, Confirm OTP, View my Profile, Change Password.
+
+- Marbust Education®: Logic for Courses: Actually I can create a new one, get all categories, get a course details by id, get list of all courses.
 - MBRelax®: Logic for Analysis App.
 - Currently Working on Node.JS with Express.js as a REST API including JWT Validation
 --- 
