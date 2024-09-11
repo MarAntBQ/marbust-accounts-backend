@@ -6,7 +6,9 @@ const coursesController = require('../../controllers/education/courses.controlle
 
 const router = express.Router();
 
+router.get('/', coursesController.getAllCourses);
 router.post('/create', authMiddleware, checkAccessMiddleware(USER_ROLE.ADMIN), coursesController.createNew);
 router.get('/categories', coursesController.getAllCategories);
+router.get('/details/:courseId', coursesController.getCourseDetails);
 
 module.exports = router;

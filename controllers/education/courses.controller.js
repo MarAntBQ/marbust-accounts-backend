@@ -44,3 +44,62 @@ exports.getAllCategories = async (req, res) => {
         res.status(500).json({ error: 'Internal server error', serverReport: error});
     }
 };
+
+exports.getCourseDetails = async (req, res) => {
+    try {
+        const { courseId } = req.params;
+        const course = await MarbustEducationCourse.findByPk(courseId, {
+            include: {
+                model: MarbustEducationCourseCategory,
+                attributes: ['name']
+            }
+        });
+
+        if (!course) {
+            return res.status(404).json({ error: `Course with id: ${courseId} not found`});
+        }
+
+        const response = {
+            id: course.id,
+            name: course.name,
+            publishedDate: course.publishedDate,
+            enabled: course.enabled,
+            category: course.MarbustEducationCourseCategory.name,
+            categoryId: course.categoryId
+        };
+
+        res.status(200).json(response);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error', serverReport: error});
+    }
+};
+
+exports.getAllCourses = async (req, res) => {
+    try {
+        const courses = await MarbustEducationCourse.findAll({
+            include: {
+                model: MarbustEducationCourseCategory,
+                attributes: ['name']
+            }
+        });
+
+        if (courses.length === 0) {
+            return res.status(404).json({ error: 'No courses found' });
+        }
+
+        const response = courses.map(course => ({
+            id: course.id,
+            name: course.name,
+            publishedDate: course.publishedDate,
+            enabled: course.enabled,
+            category: course.MarbustEducationCourseCategory.name,
+            categoryId: course.categoryId
+        }));
+
+        res.status(200).json(response);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error', serverReport: error });
+    }
+};
