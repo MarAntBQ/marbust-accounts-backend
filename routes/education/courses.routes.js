@@ -1,10 +1,11 @@
 const express = require('express');
-const authMiddleware = require('../../middleware/auth.middleware');
 const checkAccessMiddleware = require('../../middleware/checkAccess.middleware');
+const USER_ROLE = require('../../enums/role.enum');
+const authMiddleware = require('../../middleware/auth.middleware');
 const coursesController = require('../../controllers/education/courses.controller');
 
 const router = express.Router();
 
-//router.post('/create', checkAccessMiddleware(USER_ROLE.ADMIN), coursesController.createNew);
+router.post('/create', authMiddleware, checkAccessMiddleware(USER_ROLE.ADMIN), coursesController.createNew);
 
 module.exports = router;
