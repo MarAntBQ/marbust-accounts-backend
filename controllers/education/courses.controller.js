@@ -91,7 +91,7 @@ exports.getAllCourses = async (req, res) => {
         const response = courses.map(course => ({
             id: course.id,
             name: course.name,
-            publishedDate: course.publishedDate,
+            publishedDate: course.publishedDate.toISOString().split('T')[0],
             enabled: course.enabled,
             category: course.MarbustEducationCourseCategory.name,
             categoryId: course.categoryId
