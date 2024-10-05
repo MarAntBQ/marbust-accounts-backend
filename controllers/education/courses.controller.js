@@ -27,14 +27,6 @@ exports.createNew = async (req, res) => {
         });
 
         // Send email to admin about the new course
-        // const emailSubject = `Creación de cuenta - Verificación OTP [${otpCode}]`;
-        // const emailBody = `¡Bienvenido a <strong>${config.appName}</strong>! Tu cuenta ha sido creada exitosamente.
-        // <br>
-        // Por favor verifica tu dirección de correo electrónico ingresando el siguiente código OTP: <strong>${otpCode}</strong> en la página de verificación.
-        // <br>
-        // Link de verificación: <a href="${config.urls.frontend}/confirm-otp">Verificar OTP</a>
-        // `;
-        // await sendEmail(email, emailSubject, emailBody);
         const emailSubject = `Nuevo curso creado - ${name} | Marbust Education®`;
         const emailBody = `Un nuevo curso ha sido creado en Marbust Education®. Los detalles son:
         <br>
