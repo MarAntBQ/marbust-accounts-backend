@@ -26,6 +26,22 @@ exports.createNew = async (req, res) => {
             enabled: finalEnabled
         });
 
+        // Send email to admin about the new course
+        const emailSubject = `Nuevo curso creado - ${name} | Marbust Education®`;
+        const emailBody = `Un nuevo curso ha sido creado en Marbust Education®. Los detalles son:
+        <br>
+        <strong>Nombre:</strong> ${name}
+        <br>
+        <strong>Fecha de publicación:</strong> ${finalPublishedDate.toISOString().split('T')[0]}
+        <br>
+        <strong>Categoría:</strong> ${category.name}
+        <br>
+        <strong>Estado:</strong> ${finalEnabled ? 'Habilitado' : 'Deshabilitado'}
+        <br>
+        <br>
+        ¡Gracias por usar Marbust Education®!`;
+        await sendEmail('education@marbust.com', emailSubject, emailBody);
+
         res.status(201).json(newCourse);
     } catch (error) {
         console.error(error);
